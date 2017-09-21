@@ -40,6 +40,10 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
+@app.route('/api/query/<query>')
+def query_watson(query):
+    return jsonify(result="This is your " + query)
+
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
