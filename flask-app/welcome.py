@@ -13,7 +13,10 @@
 # limitations under the License.
 
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, request, redirect, url_for
+from forms import QueryForm
+import discovery
+
 
 app = Flask(__name__)
 
@@ -39,6 +42,34 @@ def SayHello(name):
         'message': 'Hello ' + name
     }
     return jsonify(results=message)
+
+
+@app.route('/query', methods=['GET', 'POST'])
+def query():
+    print "hey"
+    form = QueryForm()
+    print "sup"
+    if request.method == 'POST':
+        print "post"
+        return handle_input(request.form['query'])
+    elif request.method == 'GET':
+        print "get"
+        print type(render_template)
+        return render_template('query.html', form=form)
+
+
+def handle_input(user_input):
+
+    results = discovery.query(user_input)
+    matches = results['matching_results']
+
+    ret_str =  "<p><b>Matching results:</b> " + str(matches)+'<br>'
+    for passage in results['passages']:
+        ret_str += 'Passage:<br>'
+        ret_str +=  passage['passage_text'].replace('\n',' ') + '<br>'
+        ret_str += '<br>'
+    ret_str += "</p>"
+    return ret_str
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
