@@ -1,16 +1,17 @@
 from watson_developer_cloud import DiscoveryV1
 import json
+import sys
 
-creds = {
+creds ={
   "url": "https://gateway.watsonplatform.net/discovery/api",
-  "username": "d63aaeac-5cb8-4abc-9da6-ee8cfa5aaf46",
-  "password": "3kmLV1UWHTKG"
+  "username": "7317fa1e-f710-4671-b25a-6b4c866e0d9c",
+  "password": "lZseA0CjIFnQ"
 }
 
 api_ids ={
-	'collection_id': '505c434f-dfe8-4386-b58e-7ff03b409df6',
-	'configuration_id': 'a914a697-b804-480d-9048-918a13cf856a',
-	'environment_id': 'a8471367-179f-4548-b53c-7a184b5dd10d'
+	'collection_id': 'fc416a3f-56ce-4306-94dd-fb3d6a4be02f',
+	'configuration_id': '2d31d73a-5679-49a6-9730-63d3519b6a74',
+	'environment_id': '0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd'
 }
 
 
@@ -20,24 +21,14 @@ discovery = DiscoveryV1(
   version='2017-09-01'
 )
 
+queryString = sys.argv[1]
+
 collections = discovery.list_collections(api_ids['environment_id'])
-print(json.dumps(collections, indent=2))
 
-
-
-qopts = {'natural_language_query':'Microwaves that turn on', 'passages':'true', 'highlight':'true', 'text':'true', 'html':'true',
-			'return':'text,html'
-		}
+qopts = {'natural_language_query':queryString, 'passages':'true', 'text':'true', 'html':'true', 'return':'text,html'}
 my_query = discovery.query(api_ids['environment_id'], api_ids['collection_id'], qopts)
 
-results = my_query
-matches = results['matching_results']
+matches = my_query['results']
 
-print "Matching results:", matches
-for passage in results['passages']:
-	print 'Passage:'
-	print passage['passage_text'].replace('\n',' ')
-	print
-	print
-
-#print(json.dumps(my_query, indent=2))
+topMatch = matches[0]['html']
+print topMatch
