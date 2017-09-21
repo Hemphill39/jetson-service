@@ -43,11 +43,9 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
-<<<<<<< HEAD
 @app.route('/api/query/<query>')
 def query_watson(query):
     return jsonify(result="This is your " + query)
-=======
 
 @app.route('/query', methods=['GET', 'POST'])
 def query():
@@ -75,7 +73,6 @@ def handle_input(user_input):
         ret_str += '<br>'
     ret_str += "</p>"
     return ret_str
->>>>>>> 9a6f260bb4c006c2c2cfd32775c9218363c356ea
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
