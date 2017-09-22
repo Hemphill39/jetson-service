@@ -14,7 +14,7 @@
 
 import os
 from flask import Flask, jsonify, render_template, request, redirect, url_for
-from forms import QueryForm
+#from forms import QueryForm
 import discovery
 
 
@@ -51,7 +51,7 @@ def handle_input(user_input):
     return discovery.query(user_input)
 
 
-
+"""
 @app.route('/query', methods=['GET', 'POST'])
 def query():
     print "hey"
@@ -64,7 +64,7 @@ def query():
         print "get"
         print type(render_template)
         return render_template('query.html', form=form)
-
+"""
 
 
 port = os.getenv('PORT', '5000')
