@@ -107,11 +107,12 @@ pre {
 }
 
 .watson-container{
-	position:absolute;
+	position:relative;
 	margin:auto;
 	left:0;
 	right:0;
-	top: 55vh;
+	top: -40vh;
+	margin-bottom:-40vh;
 	background-color: white !important;
 	min-height: 0px;
 	padding:20px;
@@ -170,6 +171,10 @@ body {
     vertical-align: middle;
     color:white;
     font-size:15px;
+}
+
+.padding{
+	height:80px;
 }
 
 

@@ -48,7 +48,7 @@ def query_watson(query):
     return jsonify(result=handle_input(query))
 
 def handle_input(user_input):
-    return discovery.query(user_input)['results'][0]['html']
+    return discovery.query(user_input)
 
 
 
