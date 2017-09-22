@@ -17,34 +17,30 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Jetson Service</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  </nav>
-
-  <div class="jumbotron">
-    <h1 class="display-3">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </p>
-  </div>
-
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <input type="text" class="form-control" placeholder="Search Text" id="query-text">
-        <button type="button" id="submit-search" class="btn btn-primary">Search</button>
+  <!--<div class="flex-container">
+      <div class="row"> 
+          <div class="flex-item">1</div>
+          <div class="flex-item">2</div>
+          <div class="flex-item">3</div>
+          <div class="flex-item">4</div>
       </div>
-      <div class="col">
-        <label>Result:</label>
+  </div>-->
+  <div class="flex-container">
+      <div class="flex-row"> 
+          <input type="text" class="form-control" placeholder="What do you need help with?" id="query-text">
+          <button type="button" id="submit-search" class="btn btn-primary" style="display:none;"></button>
+      </div>
+  </div>
+  <div class="watson-container" id="result-container" style="display:none;">
+    <div class="row">
+      <div class="col-12">
         <div id="result"></div>
       </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="watson">
+      Powered by Watson
     </div>
   </div>
 </body>

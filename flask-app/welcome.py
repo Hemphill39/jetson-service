@@ -47,6 +47,11 @@ def SayHello(name):
 def query_watson(query):
     return jsonify(result=handle_input(query))
 
+def handle_input(user_input):
+    return discovery.query(user_input)['results'][0]['html']
+
+
+
 @app.route('/query', methods=['GET', 'POST'])
 def query():
     print "hey"
@@ -61,8 +66,6 @@ def query():
         return render_template('query.html', form=form)
 
 
-def handle_input(user_input):
-    return discovery.query(user_input)['results'][0]['html']
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
