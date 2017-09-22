@@ -43,6 +43,14 @@ def SayHello(name):
     }
     return jsonify(results=message)
 
+@app.route('/api/query/<query>')
+def query_watson(query):
+    return jsonify(result=handle_input(query))
+
+def handle_input(user_input):
+    return discovery.query(user_input)['results'][0]['html']
+
+
 
 @app.route('/query', methods=['GET', 'POST'])
 def query():
@@ -58,18 +66,6 @@ def query():
         return render_template('query.html', form=form)
 
 
-def handle_input(user_input):
-
-    results = discovery.query(user_input)
-    matches = results['matching_results']
-
-    ret_str =  "<p><b>Matching results:</b> " + str(matches)+'<br>'
-    for passage in results['passages']:
-        ret_str += 'Passage:<br>'
-        ret_str +=  passage['passage_text'].replace('\n',' ') + '<br>'
-        ret_str += '<br>'
-    ret_str += "</p>"
-    return ret_str
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
