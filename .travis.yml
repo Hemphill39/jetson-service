@@ -5,4 +5,4 @@ install:
   - pip install -r requirements.txt
 sudo: enabled
 os: linux
-script: python welcome.py
+script: python welcome.py &
