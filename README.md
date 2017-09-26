@@ -1,5 +1,5 @@
 # Python Flask Hello World Sample
-https://travis-ci.org/Hemphill39/jetson-service.svg?branch=master
+[![Build Status](https://travis-ci.org/Hemphill39/jetson-service.svg?branch=master)](https://travis-ci.org/Hemphill39/jetson-service)
 This application demonstrates a simple, reusable Python web application based on the [Flask microframework](http://flask.pocoo.org/).
 
 ## Run the app locally
