@@ -14,7 +14,7 @@ class JetsonServiceTestCase(unittest.TestCase):
         assert 5 == 5
 
     def test_shouldFail(self):
-        assert 5 == 6
+        assert 5 == 5
 
 if __name__ == '__main__':
     unittest.main()
