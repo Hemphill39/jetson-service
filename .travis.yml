@@ -18,3 +18,5 @@ deploy:
   manifest: manifest.yml
   region: us-south
   api: https://api.ng.bluemix.net
+  on:
+   branch: continuous-deployment
