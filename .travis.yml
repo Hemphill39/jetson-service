@@ -14,7 +14,7 @@ deploy:
   password:
     secure: BL5vUUKD0nGi/k/wmAvSi0icR1xc7eSzhOnb2/5Xl5nhwaAvGJtSbs8XpobL3oVrwoSh9y5CdkX439D3fCxIU6qiKH7Fei4jAwE25J7qs3AfGfP5iV1MeTPIhXp2tVQUi/PyRKC0/Q//kbebnDgjfJlr9GjZ5NlyqLgZ0uGHBe0I8ZzqUJatCbUf/MWxnfU3dd932wCWhl3gddrM9f8e48sFnE1GZM3dI2ss55tJEyNy7aVtVFIDntBAH0zdvAAb9ToGW+w/Uw0Beg6BZAqEbtxwBRzv7F3u5LrxA5/fp8ovIqV/NatT4MGyDuT+xW64zchswyqCz1/pCwaNInFsecdCSbqBoRbc5Q33qbWPSKQYvMKh+rWc/ToHDrp1AFArfbVE78YGpFWnT6zU91k9E6hy2HoR8+KZPQxEOW6aUYMM0NVNgcNKRgHUHKv0ND5BzMlt0mQu3WDrwapO07NT8lEJrk3CK6xe+Kk8m8D6SzKkdKqh1UfQy1dH9h+3K50JZB7u4O1Muew9ooj5iSCwSbzd/fhbK/8cktKXg2pNtl75ltOffQFw7bXWaaUordAYOthc+9CqpxTN4vWZEvm94b+NfUPmX2CcBEDD9IdNG/2dNzbOlAfcUWNSzxROlPceb7L15S/ebwSOr0d/NilKtw75aXrZe6s6b1tr09xQrK4=
   organization: hemphill.39
-  space: staging
+  space: dev
   manifest: manifest.yml
   region: us-south
   api: https://api.ng.bluemix.net
