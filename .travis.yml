@@ -5,7 +5,8 @@ install:
 - pip install -r requirements.txt
 sudo: enabled
 os: linux
-script: echo 'Building'
+script:
+  - pytest
 deploy:
   edge: true
   provider: bluemixcloudfoundry

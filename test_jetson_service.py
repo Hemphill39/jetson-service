@@ -10,10 +10,10 @@ class JetsonServiceTestCase(unittest.TestCase):
     def tearDown(self):
         print 'tear down'
 
-    def shouldPass(self):
+    def test_shouldPass(self):
         assert 5 == 5
 
-    def shouldFail(self):
+    def test_shouldFail(self):
         assert 5 == 6
 
 if __name__ == '__main__':
