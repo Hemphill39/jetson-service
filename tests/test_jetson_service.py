@@ -1,5 +1,5 @@
 import unittest
-import welcome
+from jetson_service import welcome
 
 class JetsonServiceTestCase(unittest.TestCase):
 
