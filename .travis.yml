@@ -19,4 +19,4 @@ deploy:
   region: us-south
   api: https://api.ng.bluemix.net
   on:
-   branch: starting-unit-testing
+   branch: master
