@@ -30,7 +30,7 @@ if 'VCAP_SERVICES' in os.environ:
     if 'discovery' in vcap:
         print 'Found VCAP_SERVICES'
         creds = vcap['discovery'][0]['credentials']
-        user = vcap['username']
+        user = creds['username']
         password = creds['password']
         url = creds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
@@ -40,7 +40,7 @@ elif os.path.isfile('vcap-local.json'):
         vcap = json.load(f)
         print 'Found local VCAP_SERVICES'
         creds = vcap['discovery'][0]['credentials']
-        user = vcap['username']
+        user = creds['username']
         password = creds['password']
         url = creds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
