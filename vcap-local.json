@@ -1,0 +1,23 @@
+{
+  "discovery": [
+    {
+      "credentials": {
+        "url": "https://gateway.watsonplatform.net/discovery/api",
+        "username": "DISCOVERY_USERNAME",
+        "password": "DISCOVERY_PASSWORD"
+      },
+      "syslog_drain_url": null,
+      "volume_mounts": [],
+      "label": "discovery",
+      "provider": null,
+      "plan": "lite",
+      "name": "Discovery-vq",
+      "tags": [
+        "watson",
+        "ibm_created",
+        "ibm_dedicated_public",
+        "lite"
+      ]
+    }
+  ]
+}
