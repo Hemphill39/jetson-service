@@ -19,5 +19,26 @@
         "lite"
       ]
     }
+  ],
+
+  "speech_to_text": [
+    {
+      "credentials": {
+        "url": "https://stream.watsonplatform.net/speech-to-text/api",
+        "username": "SPEECH_TO_TEXT_USERNAME",
+        "password": "SPEECH_TO_TEXT_PASSWORD"
+      },
+      "syslog_drain_url": null,
+      "volume_mounts": [],
+      "label": "speech_to_text",
+      "provider": null,
+      "plan": "standard",
+      "name": "Speech to Text-1a",
+      "tags": [
+        "watson",
+        "ibm_created",
+        "ibm_dedicated_public"
+      ]
+    }
   ]
 }
