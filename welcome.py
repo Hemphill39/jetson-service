@@ -24,48 +24,12 @@ app = Flask(__name__)
 def Welcome():
     return app.send_static_file('index.html')
 
-@app.route('/myapp')
-def WelcomeToMyapp():
-    return 'Welcome again to my app running on Bluemix!'
-
-@app.route('/api/people')
-def GetPeople():
-    list = [
-        {'name': 'John', 'age': 28},
-        {'name': 'Bill', 'val': 26}
-    ]
-    return jsonify(results=list)
-
-@app.route('/api/people/<name>')
-def SayHello(name):
-    message = {
-        'message': 'Hello ' + name
-    }
-    return jsonify(results=message)
-
 @app.route('/api/query/<query>')
 def query_watson(query):
     return jsonify(result=handle_input(query))
 
 def handle_input(user_input):
     return discovery.query(user_input)
-
-
-"""
-@app.route('/query', methods=['GET', 'POST'])
-def query():
-    print "hey"
-    form = QueryForm()
-    print "sup"
-    if request.method == 'POST':
-        print "post"
-        return handle_input(request.form['query'])
-    elif request.method == 'GET':
-        print "get"
-        print type(render_template)
-        return render_template('query.html', form=form)
-"""
-
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
