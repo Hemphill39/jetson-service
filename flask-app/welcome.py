@@ -16,7 +16,10 @@ import os
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 #from forms import QueryForm
 import discovery
-
+import os
+from os.path import join, dirname
+from watson_developer_cloud import SpeechToTextV1 as SpeechToText
+from watson_developer_cloud import AlchemyLanguageV1 as AlchemyLanguage
 
 app = Flask(__name__)
 
@@ -27,6 +30,10 @@ def Welcome():
 @app.route('/myapp')
 def WelcomeToMyapp():
     return 'Welcome again to my app running on Bluemix!'
+
+@app.route('/audio')
+def audiosend():
+    return app.send_static_file('audio.html')
 
 @app.route('/api/people')
 def GetPeople():
@@ -49,6 +56,51 @@ def query_watson(query):
 
 def handle_input(user_input):
     return discovery.query(user_input)
+
+@app.route('/audio/blob', methods=['GET', 'POST'])
+def get_blob():
+    print "sup"
+    if request.method == 'POST':
+        print request.data[:100]
+        print len(request.data)
+        print request.files
+        a = request.files['data']
+        fname = os.path.join(os.getcwd()+"/static", "test.wav")
+        a.save(fname)
+        text = speech_to_text(fname)
+        return text
+    else:
+        print "nah"
+
+
+
+
+
+def speech_to_text(wavpath):
+    print "speech to text"
+    username = "d6e16a25-d29e-43da-9ad4-d16724f0257b"
+    password = "BW7AseahEZnx"
+    speech_to_text = SpeechToText(username=username,
+    password=password)
+
+    # This is all I need
+    result = ""
+    print "File name"
+    fname = wavpath
+    print fname
+
+    try:
+        with open(fname, 'rb') as audio_file:
+            print "getting result"
+            result = speech_to_text.recognize(audio_file, content_type='audio/wav')
+            print "got result"
+
+        text = result['results'][0]['alternatives'][0]['transcript']
+        print 'What was the text?'
+        print text
+        return text
+    except:
+        return "Something went wrong. Please try again."
 
 
 """
