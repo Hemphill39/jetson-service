@@ -24,6 +24,7 @@ import json
 app = Flask(__name__)
 
 discovery = None
+Speech = None
 
 discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
 discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
@@ -60,6 +61,7 @@ elif os.path.isfile('vcap-local.json'):
         speechurl = speechcreds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
+        print "are we here?"
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 @app.route('/audio')
 def audiosend():
@@ -81,9 +83,13 @@ def get_blob():
         print len(request.data)
         print request.files
         a = request.files['data']
+        print "got file"
         fname = os.path.join(os.getcwd()+"/static", "test.wav")
         a.save(fname)
-        text = Speech_to_text().speech_to_text(fname)
+        print "file saved"
+        print Speech
+        text = Speech.speech_to_text(fname)
+        print "got text!"
         return text
     else:
         print "nah"
