@@ -6,7 +6,7 @@ install:
 sudo: enabled
 os: linux
 before_script:
-  - python welcome.py
+  - python welcome.py &
 script:
   - py.test --cov=./
 after_success:
