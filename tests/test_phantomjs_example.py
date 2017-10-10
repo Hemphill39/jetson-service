@@ -13,4 +13,5 @@ class ExampleTestCase(unittest.TestCase):
 
     def test_home(self):
         self.driver.get(self.baseURL)
+        print self.baseURL
         assert "Jetson Service" == self.driver.title
