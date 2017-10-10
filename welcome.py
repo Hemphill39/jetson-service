@@ -61,8 +61,8 @@ elif os.path.isfile('vcap-local.json'):
         speechurl = speechcreds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
-        print "are we here?"
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
+
 @app.route('/audio')
 def audiosend():
     return app.send_static_file('audio.html')
@@ -77,22 +77,14 @@ def handle_input(user_input):
 
 @app.route('/audio/blob', methods=['GET', 'POST'])
 def get_blob():
-    print "sup"
     if request.method == 'POST':
-        print request.data[:100]
-        print len(request.data)
-        print request.files
         a = request.files['data']
-        print "got file"
         fname = os.path.join(os.getcwd()+"/static", "test.wav")
         a.save(fname)
-        print "file saved"
-        print Speech
         text = Speech.speech_to_text(fname)
-        print "got text!"
         return text
     else:
-        print "nah"
+        print 'Error saving blob'
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
