@@ -27,8 +27,13 @@
   </div>-->
   <div class="flex-container">
       <div class="flex-row"> 
+        <div class="input-group">
+          <span class="input-group-btn">
+            <button id="recordButton" class="btn btn-secondary" type="button" style="height:100%;">Record</button>
+          </span>
           <input type="text" class="form-control" placeholder="What do you need help with?" id="query-text">
           <button type="button" id="submit-search" class="btn btn-primary" style="display:none;"></button>
+        </div>
       </div>
   </div>
   <div class="watson-container" id="result-container" style="display:none;">
@@ -44,6 +49,98 @@
       Powered by Watson
     </div>
   </div>
+  <pre id="log" style="visibility:hidden;"></pre>
+
+  <script>
+  var recording = false;
+  $("#recordButton").click(function(){
+      recording = !recording;
+      if (recording){
+        startRecording(this);
+        $("#recordButton").addClass("active")
+      }
+      else{
+        stopRecording(this);
+        $("#recordButton").removeClass("active")
+        $("#recordButton").prop("disabled", true);
+      }
+  });
+
+  function __log(e, data) {
+    log.innerHTML += "\n" + e + " " + (data || '');
+  }
+
+  var audio_context;
+  var recorder;
+
+  function startUserMedia(stream) {
+    var input = audio_context.createMediaStreamSource(stream);
+    // Uncomment if you want the audio to feedback directly
+    //input.connect(audio_context.destination);
+    //__log('Input connected to audio context destination.');
+    
+    recorder = new Recorder(input);
+  }
+
+  function startRecording(button) {
+    recorder && recorder.record();
+  }
+
+  function stopRecording(button) {
+    recorder && recorder.stop();    
+    // create WAV download link using audio data blob
+    createDownloadLink();
+    recorder.clear();
+  }
+
+  function createDownloadLink() {
+    recorder && recorder.exportWAV(function(blob) {
+      uploadAudio2(blob);
+    });
+  }
+
+
+
+  function uploadAudio2( blob ) {
+    var fd = new FormData();
+    fd.append('fname', 'test.wav');
+    fd.append('data', blob);
+    $('#query-text').val("...");
+    $.ajax({
+        type: 'POST',
+        url: '/audio/blob',
+        data: fd,
+        processData: false,
+        contentType: false
+    }).done(function(data) {
+           console.log(data);
+          $('#query-text').val(data);
+          $("#recordButton").prop("disabled", false);
+
+    });
+  }
+
+  window.onload = function init() {
+    try {
+      // webkit shim
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+      window.URL = window.URL || window.webkitURL;
+      
+      audio_context = new AudioContext;
+      __log('Audio context set up.');
+      __log('navigator.getUserMedia ' + (navigator.getUserMedia ? 'available.' : 'not present!'));
+    } catch (e) {
+      alert('No web audio support in this browser!');
+    }
+    
+    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+      __log('No live audio input: ' + e);
+    });
+  };
+  </script>
+
+  <script src="static/js/recorder.js"></script>
 </body>
 
 <script type="text/javascript" src="static/js/index.js"></script>
