@@ -3,8 +3,8 @@
     {
       "credentials": {
         "url": "https://gateway.watsonplatform.net/discovery/api",
-        "username": "5b1f417f-9396-4aa1-a1dd-442a88305276",
-        "password": "4LKXBYkwbUvD"
+        "username": "DISCOVERY_USERNAME",
+        "password": "DISCOVERY_PASSWORD"
       },
       "syslog_drain_url": null,
       "volume_mounts": [],
@@ -25,8 +25,8 @@
     {
       "credentials": {
         "url": "https://stream.watsonplatform.net/speech-to-text/api",
-        "username": "6ea793ee-63c7-49c7-9feb-0bf7864f8c5f",
-        "password": "kZd4cGvDCZ5n"
+        "username": "SPEECH_TO_TEXT_USERNAME",
+        "password": "SPEECH_TO_TEXT_PASSWORD"
       },
       "syslog_drain_url": null,
       "volume_mounts": [],
