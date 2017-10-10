@@ -12,14 +12,11 @@ class Speech_to_text():
         self.Speech_to_text = SpeechToText(
             username=self.speechcreds['username'],
             password=self.speechcreds['password'],
-            version='2017-09-01'
         )
+        print "constructor is gucci"
 
-    def speech_to_text(wavpath):
+    def speech_to_text(self, wavpath):
         print "speech to text"
-        f = open('../sttkeys.json','r')    
-        data = json.load(f)
-        f.close()
         username = self.speechcreds['username']
         password = self.speechcreds['password']
 

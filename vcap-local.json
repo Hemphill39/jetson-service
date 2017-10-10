@@ -25,8 +25,8 @@
     {
       "credentials": {
         "url": "https://stream.watsonplatform.net/speech-to-text/api",
-        "username": "SPEECH_TO_TEXT_USERNAME",
-        "password": "SPEECH_TO_TEXT_PASSWORD"
+        "username" : "",
+        "password" : ""
       },
       "syslog_drain_url": null,
       "volume_mounts": [],
