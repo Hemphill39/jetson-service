@@ -1,32 +1,34 @@
 from watson_developer_cloud import DiscoveryV1
 import json
 
-creds ={
-  "url": "https://gateway.watsonplatform.net/discovery/api",
-  "username": "7317fa1e-f710-4671-b25a-6b4c866e0d9c",
-  "password": "lZseA0CjIFnQ"
-}
 
-api_ids ={
-	'collection_id': 'c31902df-8069-4ea2-9c75-746336721525',
-	'configuration_id': '2d31d73a-5679-49a6-9730-63d3519b6a74',
-	'environment_id': '0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd'
-}
+class Discovery():
+    creds = {}
+    api_ids = {}
 
+    def __init__(self, url, username, password, collection_id, config_id, environment_id):
+        self.creds['url'] = url
+        self.creds['username'] = username
+        self.creds['password'] = password
 
-discovery = DiscoveryV1(
-  username=creds['username'],
-  password=creds['password'],
-  version='2017-09-01'
-)
+        self.api_ids['collection_id'] = collection_id
+        self.api_ids['configuration_id'] = config_id
+        self.api_ids['environment_id'] = environment_id
 
-def query(queryString):
-	collections = discovery.list_collections(api_ids['environment_id'])
+        self.discovery = DiscoveryV1(
+            username=self.creds['username'],
+            password=self.creds['password'],
+            version='2017-09-01'
+        )
 
-	qopts = {'natural_language_query':queryString, 'passages':'true', 'text':'true', 'html':'true', 'return':'text,html'}
-	my_query = discovery.query(api_ids['environment_id'], api_ids['collection_id'], qopts)
+    def query(self, queryString):
+        collections = self.discovery.list_collections(self.api_ids['environment_id'])
 
-	matches = my_query['results']
+        qopts = {'natural_language_query': queryString, 'passages': 'true', 'text': 'true', 'html': 'true',
+                 'return': 'text,html'}
+        my_query = self.discovery.query(self.api_ids['environment_id'], self.api_ids['collection_id'], qopts)
 
-	topMatch = matches[0]['html']
-	return topMatch
+        matches = my_query['results']
+
+        topMatch = matches[0]['html']
+        return topMatch
