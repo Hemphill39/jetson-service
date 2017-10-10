@@ -20,6 +20,7 @@ import os
 from os.path import join, dirname
 from watson_developer_cloud import SpeechToTextV1 as SpeechToText
 from watson_developer_cloud import AlchemyLanguageV1 as AlchemyLanguage
+import json
 
 app = Flask(__name__)
 
@@ -78,8 +79,12 @@ def get_blob():
 
 def speech_to_text(wavpath):
     print "speech to text"
-    username = "d6e16a25-d29e-43da-9ad4-d16724f0257b"
-    password = "BW7AseahEZnx"
+    f = open('../sttkeys.json','r')    
+    data = json.load(f)
+    f.close()
+    username = data['username']
+    password = data['password']
+
     speech_to_text = SpeechToText(username=username,
     password=password)
 
