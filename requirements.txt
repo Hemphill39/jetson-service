@@ -3,3 +3,4 @@ watson-developer-cloud
 pytest
 codecov
 pytest-cov
+selenium
