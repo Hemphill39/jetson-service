@@ -15,16 +15,12 @@
 import os
 import json
 from flask import Flask, jsonify, render_template, request, redirect, url_for
-<<<<<<< HEAD
 from discovery import Discovery
-=======
-#from forms import QueryForm
-import discovery
 import os
 from os.path import join, dirname
 from watson_developer_cloud import SpeechToTextV1 as SpeechToText
 from watson_developer_cloud import AlchemyLanguageV1 as AlchemyLanguage
->>>>>>> 74cbf05e12146ad287a246a54266d0e76b687b6f
+import json
 
 app = Flask(__name__)
 
@@ -34,7 +30,6 @@ discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
 discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
 discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
 
-<<<<<<< HEAD
 if 'VCAP_SERVICES' in os.environ:
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
     if 'discovery' in vcap:
@@ -55,7 +50,6 @@ elif os.path.isfile('vcap-local.json'):
         url = creds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
-=======
 @app.route('/audio')
 def audiosend():
     return app.send_static_file('audio.html')
@@ -67,7 +61,6 @@ def GetPeople():
         {'name': 'Bill', 'val': 26}
     ]
     return jsonify(results=list)
->>>>>>> 74cbf05e12146ad287a246a54266d0e76b687b6f
 
 
 @app.route('/')
@@ -82,8 +75,6 @@ def handle_input(user_input):
     discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
     return discovery.query(user_input)
 
-<<<<<<< HEAD
-=======
 @app.route('/audio/blob', methods=['GET', 'POST'])
 def get_blob():
     print "sup"
@@ -99,14 +90,14 @@ def get_blob():
     else:
         print "nah"
 
-
-
-
-
 def speech_to_text(wavpath):
     print "speech to text"
-    username = "d6e16a25-d29e-43da-9ad4-d16724f0257b"
-    password = "BW7AseahEZnx"
+    f = open('../sttkeys.json','r')    
+    data = json.load(f)
+    f.close()
+    username = data['username']
+    password = data['password']
+
     speech_to_text = SpeechToText(username=username,
     password=password)
 
@@ -129,24 +120,6 @@ def speech_to_text(wavpath):
     except:
         return "Something went wrong. Please try again."
 
-
-"""
-@app.route('/query', methods=['GET', 'POST'])
-def query():
-    print "hey"
-    form = QueryForm()
-    print "sup"
-    if request.method == 'POST':
-        print "post"
-        return handle_input(request.form['query'])
-    elif request.method == 'GET':
-        print "get"
-        print type(render_template)
-        return render_template('query.html', form=form)
-"""
-
-
->>>>>>> 74cbf05e12146ad287a246a54266d0e76b687b6f
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
 	app.run(host='0.0.0.0', port=int(port))
