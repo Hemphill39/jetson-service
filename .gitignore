@@ -15,8 +15,6 @@ _mailinglist
 .idea/
 vcap-local.json
 
-*.log
-
 # Coverage reports
 htmlcov
 .coverage
