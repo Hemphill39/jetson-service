@@ -1,35 +1,44 @@
 import json
-import sys
 from watson_developer_cloud import NaturalLanguageClassifierV1
 
-'''
-natural_language_classifier = NaturalLanguageClassifierV1(
-  username="04875829-47ad-4cd1-9fca-e7af9ec9fe2a",
-  password="wqaF6RR7Qpe2")
-'''
+class NLC():
+    creds = {}
+    api_ids = {}
 
-natural_language_classifier = NaturalLanguageClassifierV1(
-  username="ae471795-0c8d-4a97-bf01-b6fd7cf44c64",
-  password="Ex0swaM8kdB6")
+    def __init__(self, url, username, password, classifier_id):
+        self.creds['url'] = url
+        self.creds['username'] = username
+        self.creds['password'] = password
 
+        self.api_ids['classifier_id'] = classifier_id
 
-classes = natural_language_classifier.classify('ebd44cx231-nlc-23722', sys.argv[1])
-classes = classes['classes']
+        self.nlc = NaturalLanguageClassifierV1(
+            username=self.creds['username'],
+            password=self.creds['password'],
+            version='2017-09-01'
+        )
 
-results = []
-maxVal = 0
-for cat in classes:
-  name = cat['class_name']
-  val = cat['confidence']
-  if val > maxVal:
-    maxVal = val
-  results.append((name, val))
+    def classify(self, queryString):
+    classes = natural_language_classifier.classify(self.api_ids['classifier_id'], queryString)
+    classes = classes['classes']
 
-potentials = []
-threshold = maxVal-0.4
-for result in results:
-  if result[1] > threshold:
-    potentials.append(result)
+    results = []
+    maxVal = 0
+    for cat in classes:
+        name = cat['class_name']
+        val = cat['confidence']
+        if val > maxVal:
+        maxVal = val
+        results.append((name, val))
 
-for element in potentials:
-  print element[0]
+        potentials = []
+        threshold = maxVal-0.4
+        for result in results:
+        if result[1] > threshold:
+            potentials.append(result)
+        
+        results = []
+        for element in potentials:
+        results.append(element)
+
+        return results
