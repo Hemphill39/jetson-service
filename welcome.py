@@ -47,7 +47,7 @@ if 'VCAP_SERVICES' in os.environ:
         speechpassword = speechcreds['password']
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
-        
+
 elif os.path.isfile('vcap-local.json'):
     with open('vcap-local.json') as f:
         vcap = json.load(f)
@@ -63,6 +63,10 @@ elif os.path.isfile('vcap-local.json'):
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
+
+@app.route('/')
+def Welcome():
+    return app.send_static_file('index.html')
 
 @app.route('/audio')
 def audiosend():
