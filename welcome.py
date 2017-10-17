@@ -95,11 +95,30 @@ def audiosend():
 
 @app.route('/api/query/<query>')
 def query_watson(query):
-    return jsonify(result=handle_input(query))
+    query_obj = json.loads(query)
+    return jsonify(result=handle_input(query_obj))
 
-def handle_input(user_input):
-    discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
-    return discovery.query(user_input)
+def handle_input(input_object):
+    user_input = input_object['queryText']
+    user_category = input_object['category']
+
+    wrapper_object = {'html':'' , 'categories': []}
+
+    #If len(user_category) == 0 then the user has not yet had the chance to pick a category (or simply did not choose when
+    #when given the opportunity.) If they did select one, then this trumps running nlc.
+    categories = []
+    if not user_category:
+        categories = nlc(user_input)
+    else:
+        categories.append(user_category)
+
+    wrapper_object['categories'] = categories
+
+    if len(categories) == 1:
+        #discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
+        #wrapper_object['html'] = discovery.query(user_input)
+        wrapper_object['html'] = "ERIC IS THE BEST TEST FOCUSED ENGINEER. Also you picked the category: " + categories[0]
+    return json.dumps(wrapper_object)
 
 @app.route('/audio/blob', methods=['GET', 'POST'])
 def get_blob():
@@ -110,7 +129,10 @@ def get_blob():
         text = Speech.speech_to_text(fname)
         return text
     else:
-        print 'Error saving blob'
+        print "nah"
+
+def nlc(s):
+    return ['Washer','Microwave','Dryer','Regfrigerator']
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
