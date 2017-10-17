@@ -64,10 +64,12 @@ elif os.path.isfile('vcap-local.json'):
                               discovery_environment_id)
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
+# test with selenium
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
 
+# test with selenium
 @app.route('/audio')
 def audiosend():
     return app.send_static_file('audio.html')
