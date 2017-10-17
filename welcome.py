@@ -17,6 +17,7 @@ import json
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from discovery import Discovery
 from speech_to_text import Speech_to_text
+from getConfidence import NLC
 from os.path import join, dirname
 from watson_developer_cloud import AlchemyLanguageV1 as AlchemyLanguage
 import json
@@ -25,21 +26,33 @@ app = Flask(__name__)
 
 discovery = None
 Speech = None
+classifier = None
 
 discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
 discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
 discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
 
+classifier_id="ebd15ex229-nlc-54210"
+
 if 'VCAP_SERVICES' in os.environ:
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
     if 'discovery' in vcap:
         print 'Found VCAP_SERVICES'
-        creds = vcap['discovery'][0]['credentials']
-        user = creds['username']
-        password = creds['password']
-        url = creds['url']
-        discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
+        discreds = vcap['discovery'][0]['credentials']
+        disuser = discreds['username']
+        dispassword = discreds['password']
+        disurl = discreds['url']
+        discovery = Discovery(disurl, disuser, dispassword, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
+    
+    if 'natural_language_classifier' in vcap:
+        print 'Found VCAP_SERVICES'
+        nlccreds = vcap['natural_language_classifier'][0]['credentials']
+        nlcuser = nlccreds['username']
+        nlcpassword = nlccreds['password']
+        nlcurl = nlccreds['url']
+        classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
+    
     if 'speech_to_text' in vcap:
         print 'Found VCAP_SERVICES'
         speechcreds = vcap['speech_to_text'][0]['credentials']
@@ -52,17 +65,25 @@ elif os.path.isfile('vcap-local.json'):
     with open('vcap-local.json') as f:
         vcap = json.load(f)
         print 'Found local VCAP_SERVICES'
-        creds = vcap['discovery'][0]['credentials']
-        speechcreds = vcap['speech_to_text'][0]['credentials']
-        user = creds['username']
-        speechuser = speechcreds['username']
-        password = creds['password']
-        speechpassword = speechcreds['password']
-        url = creds['url']
-        speechurl = speechcreds['url']
-        discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
+        
+        discreds = vcap['discovery'][0]['credentials']
+        disuser = discreds['username']
+        dispassword = discreds['password']
+        disurl = discreds['url']
+        discovery = Discovery(disurl, disuser, dispassword, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
+
+        speechcreds = vcap['speech_to_text'][0]['credentials']
+        speechuser = speechcreds['username']
+        speechpassword = speechcreds['password']
+        speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
+
+        nlccreds = vcap['discovery'][0]['credentials']
+        nlcuser = nlccreds['username']
+        nlcpassword = nlccreds['password']
+        nlcurl = nlccreds['url']
+        classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
 
 @app.route('/')
 def Welcome():
