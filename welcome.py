@@ -101,7 +101,6 @@ def query_watson(query):
     return jsonify(result=handle_input(query))
 
 def handle_input(user_input):
-    discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
     return discovery.query(user_input)
 
 @app.route('/audio/blob', methods=['GET', 'POST'])
