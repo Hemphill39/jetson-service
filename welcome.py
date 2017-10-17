@@ -28,9 +28,9 @@ discovery = None
 Speech = None
 classifier = None
 
-discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
-discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
-discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
+discovery_collection_id="0cead13f-1bf4-438b-8c6b-e3f412d2eb3e"
+discovery_configuration_id="59aca88c-a9c2-4299-a6a2-be7e5e3eea6b"
+discovery_environment_id="67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 
 classifier_id="ebd15ex229-nlc-54210"
 
@@ -44,7 +44,7 @@ if 'VCAP_SERVICES' in os.environ:
         disurl = discreds['url']
         discovery = Discovery(disurl, disuser, dispassword, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
-    
+
     if 'natural_language_classifier' in vcap:
         print 'Found VCAP_SERVICES'
         nlccreds = vcap['natural_language_classifier'][0]['credentials']
@@ -52,7 +52,7 @@ if 'VCAP_SERVICES' in os.environ:
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
-    
+
     if 'speech_to_text' in vcap:
         print 'Found VCAP_SERVICES'
         speechcreds = vcap['speech_to_text'][0]['credentials']
@@ -65,7 +65,7 @@ elif os.path.isfile('vcap-local.json'):
     with open('vcap-local.json') as f:
         vcap = json.load(f)
         print 'Found local VCAP_SERVICES'
-        
+
         discreds = vcap['discovery'][0]['credentials']
         disuser = discreds['username']
         dispassword = discreds['password']
