@@ -39,9 +39,9 @@ if 'VCAP_SERVICES' in os.environ:
     if 'discovery' in vcap:
         print 'Found VCAP_SERVICES'
         creds = vcap['discovery'][0]['credentials']
-        user = creds['username']
-        password = creds['password']
-        url = creds['url']
+        nlcuser = nlccreds['username']
+        nlcpassword = nlccreds['password']
+        nlcurl = nlccreds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
     if 'natural_language_classifier' in vcap:
@@ -65,13 +65,14 @@ elif os.path.isfile('vcap-local.json'):
         print 'Found local VCAP_SERVICES'
         creds = vcap['discovery'][0]['credentials']
         speechcreds = vcap['speech_to_text'][0]['credentials']
+        nlccreds = vcap['natural_language_classifier'][0]['credentials']
         user = creds['username']
         speechuser = speechcreds['username']
         password = creds['password']
         speechpassword = speechcreds['password']
         url = creds['url']
         speechurl = speechcreds['url']
-        classifier = NLC(url, user, password, classifier_id)
+        classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
