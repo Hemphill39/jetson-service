@@ -14,8 +14,7 @@ class NLC():
 
         self.nlc = NaturalLanguageClassifierV1(
             username=self.creds['username'],
-            password=self.creds['password'],
-            version='2017-09-01'
+            password=self.creds['password']
         )
 
     def classify(self, queryString):
