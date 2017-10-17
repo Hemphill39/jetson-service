@@ -5,6 +5,8 @@ install:
 - pip install -r requirements.txt
 sudo: enabled
 os: linux
+before_script:
+  - python welcome.py &
 script:
   - py.test --cov=./
 after_success:
