@@ -13,7 +13,6 @@ class Speech_to_text():
             username=self.speechcreds['username'],
             password=self.speechcreds['password'],
         )
-        print "constructor is gucci"
 
     def speech_to_text(self, wavpath):
         print "speech to text"
