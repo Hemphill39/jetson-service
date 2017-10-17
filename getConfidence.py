@@ -19,26 +19,26 @@ class NLC():
         )
 
     def classify(self, queryString):
-    classes = natural_language_classifier.classify(self.api_ids['classifier_id'], queryString)
-    classes = classes['classes']
+        classes = NLC.classify(self.api_ids['classifier_id'], queryString)
+        classes = classes['classes']
 
-    results = []
-    maxVal = 0
-    for cat in classes:
-        name = cat['class_name']
-        val = cat['confidence']
-        if val > maxVal:
-        maxVal = val
-        results.append((name, val))
-
-        potentials = []
-        threshold = maxVal-0.4
-        for result in results:
-        if result[1] > threshold:
-            potentials.append(result)
-        
         results = []
-        for element in potentials:
-        results.append(element)
+        maxVal = 0
+        for cat in classes:
+            name = cat['class_name']
+            val = cat['confidence']
+            if val > maxVal:
+                maxVal = val
+                results.append((name, val))
 
-        return results
+                potentials = []
+                threshold = maxVal-0.4
+            for result in results:
+                if result[1] > threshold:
+                    potentials.append(result)
+            
+            results = []
+            for element in potentials:
+                results.append(element)
+
+            return results
