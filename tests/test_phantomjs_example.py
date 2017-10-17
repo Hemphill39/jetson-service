@@ -6,7 +6,7 @@ import unittest
 class ExampleTestCase(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.PhantomJS()
-        self.baseURL = "http://localhost:5000/"
+        self.baseURL = "http://127.0.0.1:5000/"
 
     def tearDown(self):
         self.driver.quit
