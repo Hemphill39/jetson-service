@@ -108,6 +108,7 @@ def handle_input(input_object):
     #when given the opportunity.) If they did select one, then this trumps running nlc.
     categories = []
     if not user_category:
+        print "calling nlc"
         categories = nlc(user_input)
     else:
         categories.append(user_category)
@@ -115,8 +116,8 @@ def handle_input(input_object):
     wrapper_object['categories'] = categories
 
     if len(categories) == 1:
-        #discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
-        #wrapper_object['html'] = discovery.query(user_input)
+        discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
+        wrapper_object['html'] = discovery.query(user_input)
         wrapper_object['html'] = "ERIC IS THE BEST TEST FOCUSED ENGINEER. Also you picked the category: " + categories[0]
     return json.dumps(wrapper_object)
 
@@ -132,7 +133,8 @@ def get_blob():
         print "nah"
 
 def nlc(s):
-    return ['Washer','Microwave','Dryer','Regfrigerator']
+    print "nlc calling nlc"
+    return classifier.classify(s)
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
