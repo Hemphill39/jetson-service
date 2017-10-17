@@ -17,6 +17,7 @@ import json
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from discovery import Discovery
 from speech_to_text import Speech_to_text
+from getConfidence import NLC
 from os.path import join, dirname
 from watson_developer_cloud import AlchemyLanguageV1 as AlchemyLanguage
 import json
@@ -25,10 +26,13 @@ app = Flask(__name__)
 
 discovery = None
 Speech = None
+classifier = None
 
 discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
 discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
 discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
+
+classifier_id="ebd44cx231-nlc-23722"
 
 if 'VCAP_SERVICES' in os.environ:
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
@@ -40,6 +44,13 @@ if 'VCAP_SERVICES' in os.environ:
         url = creds['url']
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
+    if 'natural_language_classifier' in vcap:
+        print 'Found VCAP_SERVICES'
+        creds = vcap['natural_language_classifier'][0]['credentials']
+        user = creds['username']
+        password = creds['password']
+        url = creds['url']
+        classifier = NLC(url, user, password, classifier_id)
     if 'speech_to_text' in vcap:
         print 'Found VCAP_SERVICES'
         speechcreds = vcap['speech_to_text'][0]['credentials']
@@ -59,6 +70,7 @@ elif os.path.isfile('vcap-local.json'):
         speechpassword = speechcreds['password']
         url = creds['url']
         speechurl = speechcreds['url']
+        classifier = NLC(url, user, password, classifier_id)
         discovery = Discovery(url, user, password, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
         print "are we here?"
