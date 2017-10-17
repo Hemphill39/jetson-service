@@ -32,7 +32,7 @@ discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
 discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
 discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
 
-classifier_id="ebd44cx231-nlc-23722"
+classifier_id="ebd15ex229-nlc-54210"
 
 if 'VCAP_SERVICES' in os.environ:
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
