@@ -1,19 +1,13 @@
-var selected_classifier = ""
+var selected_classifier = "";
 
-$( document ).ready(function() {
+var query = function(queryText, category) {
+	var package = {}
+	package['queryText'] = queryText;
+	package['category'] = category;
 
-	$( "#category-dropdown-button" ).hide();
+	var url = "/api/query/" + JSON.stringify(package);
 
-	$("#submit-search").click(function(){
-	    console.log('Search Sent with classifier ' + selected_classifier);
-
-	    var package_to_send = {}
-	    package_to_send['queryText'] = $('#query-text').val();
-	    package_to_send['category'] = selected_classifier;
-
-	    var url = "/api/query/" + JSON.stringify(package_to_send);
-	    $("#query-text").attr("disabled", "disabled");
-	    $.ajax({url: url, success: function(result){
+	$.ajax({url: url, success: function(result){
 
 	    	var wrapper_object = JSON.parse(result.result);
 
@@ -31,14 +25,11 @@ $( document ).ready(function() {
 	    		var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 	    		$( "#category-dropdown" ).empty()
 	    		for (var i = 0; i < wrapper_object['categories'].length; i++){
-	    			category = wrapper_object['categories'][i]
+	    			category = wrapper_object['categories'][i]['class_name']
 	    			$( "#category-dropdown" ).append( '<a class="dropdown-item" href="#">' + category + '</a>');
 	    		}
 	    		$("#result").html(outstring);
 	    	}
-
-
-
 
 	        $("#result-container").show();
 	        $("#query-text").removeAttr("disabled"); 
@@ -48,6 +39,22 @@ $( document ).ready(function() {
         		alert("Status: " + textStatus); alert("Error: " + errorThrown); 
         		$("#query-text").removeAttr("disabled"); 
     	}});
+}
+
+$( document ).ready(function() {
+
+	$( "#category-dropdown-button" ).hide();
+
+	$("#submit-search").click(function(){
+	    console.log('Search Sent with classifier ' + selected_classifier);
+
+	    var queryText = $('#query-text').val();
+		var category = selected_classifier;
+		
+		$("#query-text").attr("disabled", "disabled");
+		
+		query(queryText, category);
+	    
 	});
 
 	$('#query-text').keypress(function(e){
@@ -60,9 +67,9 @@ $( document ).ready(function() {
 	//this will let the parent of the list objects (really <a> elements) delegate the function
 	//which we need since the <a>'s are dynamically generated.
 	$("#category-dropdown").on('click', 'a', function(event) {
-	    selected_classifier = $(this).text();
-	    console.log(selected_classifier)
-	    console.log("yo")
+		selected_classifier = $(this).text();
+		var queryText = $("#query-text").val();
+	    query(queryText, selected_classifier);
 	});
 
 });
