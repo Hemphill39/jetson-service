@@ -29,13 +29,10 @@ class NLC():
                 maxVal = val
                 results.append((name, val))
 
-                potentials = []
-                threshold = maxVal-0.4
-            for result in results:
-                if result[1] > threshold:
-                    potentials.append(result)
-            
-            results = []
-            for element in potentials:
-                results.append(element)
-            return results
+        potentials = []
+        threshold = maxVal-0.4
+        for result in results:
+            if result[1] > threshold:
+                potentials.append(result[0])
+
+        return potentials

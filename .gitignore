@@ -13,7 +13,7 @@ _mailinglist
 .tox
 .cache/
 .idea/
-vcap-local.json
+vcap-local-back.json
 
 # Coverage reports
 htmlcov
