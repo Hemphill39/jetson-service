@@ -25,7 +25,7 @@ var query = function(queryText, category) {
 	    		var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 	    		$( "#category-dropdown" ).empty()
 	    		for (var i = 0; i < wrapper_object['categories'].length; i++){
-	    			category = wrapper_object['categories'][i]['class_name']
+	    			category = wrapper_object['categories'][i]
 	    			$( "#category-dropdown" ).append( '<a class="dropdown-item" href="#">' + category + '</a>');
 	    		}
 	    		$("#result").html(outstring);
