@@ -69,7 +69,8 @@ $( document ).ready(function() {
 	$("#category-dropdown").on('click', 'a', function(event) {
 		selected_classifier = $(this).text();
 		var queryText = $("#query-text").val();
-	    query(queryText, selected_classifier);
+		query(queryText, selected_classifier);
+		selected_classifier = "";
 	});
 
 });
