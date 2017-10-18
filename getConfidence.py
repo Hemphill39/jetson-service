@@ -20,7 +20,7 @@ class NLC():
 
     def classify(self, queryString):
         print "using classify"
-        classes = NLC.classify(self.api_ids['classifier_id'], queryString)
+        classes = self.nlc.classify(self.api_ids['classifier_id'], queryString)
         print "maybe here"
         classes = classes['classes']
         print "setup classes"

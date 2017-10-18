@@ -79,7 +79,7 @@ elif os.path.isfile('vcap-local.json'):
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-        nlccreds = vcap['discovery'][0]['credentials']
+        nlccreds = vcap['natural_language_classifier'][0]['credentials']
         nlcuser = nlccreds['username']
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
@@ -116,9 +116,7 @@ def handle_input(input_object):
     wrapper_object['categories'] = categories
 
     if len(categories) == 1:
-        discovery = Discovery(app.config['discovery_url'], app.config['discovery_username'], app.config['discovery_password'], app.config['discovery_collection_id'], app.config['discovery_configuration_id'], app.config['discovery_environment_id'])
         wrapper_object['html'] = discovery.query(user_input)
-        wrapper_object['html'] = "ERIC IS THE BEST TEST FOCUSED ENGINEER. Also you picked the category: " + categories[0]
     return json.dumps(wrapper_object)
 
 @app.route('/audio/blob', methods=['GET', 'POST'])

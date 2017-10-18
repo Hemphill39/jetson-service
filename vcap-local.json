@@ -1,83 +1,83 @@
 {
-   "speech_to_text": [
-       {
-           "credentials": {
-               "url": "https://stream.watsonplatform.net/speech-to-text/api",
-               "username": "878419c0-dd85-4823-b7be-5e31b9d4878c",
-               "password": "y066aH5oDDmm"
-           },
-           "syslog_drain_url": null,
-           "volume_mounts": [],
-           "label": "speech_to_text",
-           "provider": null,
-           "plan": "standard",
-           "name": "Speech to Text-1a",
-           "tags": [
-               "watson",
-               "ibm_created",
-               "ibm_dedicated_public"
-           ]
-       }
-   ],
-   "discovery": [
-       {
-           "credentials": {
-               "url": "https://gateway.watsonplatform.net/discovery/api",
-               "username": "f61b4e15-eea8-4026-87b1-34a28b8ea573",
-               "password": "u1FyRk0g8844"
-           },
-           "syslog_drain_url": null,
-           "volume_mounts": [],
-           "label": "discovery",
-           "provider": null,
-           "plan": "lite",
-           "name": "Discovery-vq",
-           "tags": [
-               "watson",
-               "ibm_created",
-               "ibm_dedicated_public",
-               "lite"
-           ]
-       }
-   ],
-   "natural_language_classifier": [
-       {
-           "credentials": {
-               "url": "https://gateway.watsonplatform.net/natural-language-classifier/api",
-               "username": "3d7edd7f-28a8-40c4-8a5a-cc7804670e71",
-               "password": "oXS3QYcpV5lz"
-           },
-           "syslog_drain_url": null,
-           "volume_mounts": [],
-           "label": "natural_language_classifier",
-           "provider": null,
-           "plan": "standard",
-           "name": "JetsonNLC",
-           "tags": [
-               "watson",
-               "ibm_created",
-               "ibm_dedicated_public"
-           ]
-       }
-   ],
-   "AvailabilityMonitoring": [
-       {
-           "credentials": {
-               "cred_url": "https://perfbroker.ng.bluemix.net",
-               "token": "XfxqtWJkZ2kAePagZqJd6FktDCkm0GGvV7w36vSk1ynwggxmZ+OBX2LbGUa/pZPRw0r4LRp968Hvh1IpDkgD0TEeiVd3KYgfkeDVkLvBGF4="
-           },
-           "syslog_drain_url": null,
-           "volume_mounts": [],
-           "label": "AvailabilityMonitoring",
-           "provider": null,
-           "plan": "Lite",
-           "name": "availability-monitoring-auto",
-           "tags": [
-               "ibm_created",
-               "bluemix_extensions",
-               "dev_ops",
-               "lite"
-           ]
-       }
-   ]
+    "speech_to_text": [
+        {
+            "credentials": {
+                "url": "https://stream.watsonplatform.net/speech-to-text/api",
+                "username": "SPEECH_TO_TEXT_USERNAME",
+                "password": "SPECCH_TO_TEXT_PASSWORD"
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": [],
+            "label": "speech_to_text",
+            "provider": null,
+            "plan": "standard",
+            "name": "Speech to Text-1a",
+            "tags": [
+                "watson",
+                "ibm_created",
+                "ibm_dedicated_public"
+            ]
+        }
+    ],
+    "discovery": [
+        {
+            "credentials": {
+                "url": "https://gateway.watsonplatform.net/discovery/api",
+                "username": "DISCOVERY_USERNAME",
+                "password": "DISCOVERY_PASS"
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": [],
+            "label": "discovery",
+            "provider": null,
+            "plan": "lite",
+            "name": "Discovery-vq",
+            "tags": [
+                "watson",
+                "ibm_created",
+                "ibm_dedicated_public",
+                "lite"
+            ]
+        }
+    ],
+    "natural_language_classifier": [
+        {
+            "credentials": {
+                "url": "https://gateway.watsonplatform.net/natural-language-classifier/api",
+                "username": "NLC_USERNAME",
+                "password": "NLC_PASSWORD"
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": [],
+            "label": "natural_language_classifier",
+            "provider": null,
+            "plan": "standard",
+            "name": "JetsonNLC",
+            "tags": [
+                "watson",
+                "ibm_created",
+                "ibm_dedicated_public"
+            ]
+        }
+    ],
+    "AvailabilityMonitoring": [
+        {
+            "credentials": {
+                "cred_url": "https://perfbroker.ng.bluemix.net",
+                "token": "XfxqtWJkZ2kAePagZqJd6FktDCkm0GGvV7w36vSk1ynwggxmZ+OBX2LbGUa/pZPRw0r4LRp968Hvh1IpDkgD0TEeiVd3KYgfkeDVkLvBGF4="
+            },
+            "syslog_drain_url": null,
+            "volume_mounts": [],
+            "label": "AvailabilityMonitoring",
+            "provider": null,
+            "plan": "Lite",
+            "name": "availability-monitoring-auto",
+            "tags": [
+                "ibm_created",
+                "bluemix_extensions",
+                "dev_ops",
+                "lite"
+            ]
+        }
+    ]
 }
