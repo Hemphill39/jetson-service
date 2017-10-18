@@ -16,14 +16,10 @@ class NLC():
             username=self.creds['username'],
             password=self.creds['password']
         )
-        print "built nlc obj"
 
     def classify(self, queryString):
-        print "using classify"
         classes = self.nlc.classify(self.api_ids['classifier_id'], queryString)
-        print "maybe here"
         classes = classes['classes']
-        print "setup classes"
         results = []
         maxVal = 0
         for cat in classes:
@@ -42,5 +38,4 @@ class NLC():
             results = []
             for element in potentials:
                 results.append(element)
-            print "returning results"
             return results

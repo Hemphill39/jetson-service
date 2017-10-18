@@ -128,7 +128,7 @@ def get_blob():
         text = Speech.speech_to_text(fname)
         return text
     else:
-        print "nah"
+        print "error saving blob"
 
 def nlc(s):
     print "nlc calling nlc"
