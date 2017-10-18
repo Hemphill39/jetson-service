@@ -116,7 +116,7 @@ def handle_input(input_object):
     wrapper_object['categories'] = categories
 
     if len(categories) == 1:
-        wrapper_object['html'] = discovery.query(user_input)
+        wrapper_object['html'] = discovery.query(user_input,categories[0])
     return json.dumps(wrapper_object)
 
 @app.route('/audio/blob', methods=['GET', 'POST'])
