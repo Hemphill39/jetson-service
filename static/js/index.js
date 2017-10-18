@@ -36,7 +36,7 @@ var query = function(queryText, category) {
 
 	    },
 	      	error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        		alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+        		console.error("Status: " + textStatus); console.error("Error: " + errorThrown); 
         		$("#query-text").removeAttr("disabled"); 
     	}});
 }
