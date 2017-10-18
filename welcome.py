@@ -28,9 +28,9 @@ discovery = None
 Speech = None
 classifier = None
 
-discovery_collection_id="c31902df-8069-4ea2-9c75-746336721525"
-discovery_configuration_id="2d31d73a-5679-49a6-9730-63d3519b6a74"
-discovery_environment_id="0cfdc99b-3b1e-4b0b-b5ec-bfebf5d250dd"
+discovery_collection_id="0cead13f-1bf4-438b-8c6b-e3f412d2eb3e"
+discovery_configuration_id="59aca88c-a9c2-4299-a6a2-be7e5e3eea6b"
+discovery_environment_id="67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 
 classifier_id="ebd15ex229-nlc-54210"
 
@@ -44,7 +44,7 @@ if 'VCAP_SERVICES' in os.environ:
         disurl = discreds['url']
         discovery = Discovery(disurl, disuser, dispassword, discovery_collection_id, discovery_configuration_id,
                               discovery_environment_id)
-    
+
     if 'natural_language_classifier' in vcap:
         print 'Found VCAP_SERVICES'
         nlccreds = vcap['natural_language_classifier'][0]['credentials']
@@ -52,7 +52,7 @@ if 'VCAP_SERVICES' in os.environ:
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
-    
+
     if 'speech_to_text' in vcap:
         print 'Found VCAP_SERVICES'
         speechcreds = vcap['speech_to_text'][0]['credentials']
@@ -65,7 +65,7 @@ elif os.path.isfile('vcap-local.json'):
     with open('vcap-local.json') as f:
         vcap = json.load(f)
         print 'Found local VCAP_SERVICES'
-        
+
         discreds = vcap['discovery'][0]['credentials']
         disuser = discreds['username']
         dispassword = discreds['password']
@@ -79,8 +79,7 @@ elif os.path.isfile('vcap-local.json'):
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-
-        nlccreds = vcap['discovery'][0]['credentials']
+        nlccreds = vcap['natural_language_classifier'][0]['credentials']
         nlcuser = nlccreds['username']
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
@@ -98,10 +97,33 @@ def audiosend():
 
 @app.route('/api/query/<query>')
 def query_watson(query):
-    return jsonify(result=handle_input(query))
+    query_obj = json.loads(query)
+    return jsonify(result=handle_input(query_obj))
 
-def handle_input(user_input):
-    return discovery.query(user_input)
+def handle_input(input_object):
+    user_input = input_object['queryText']
+    user_category = input_object['category']
+
+def handle_input(input_object):
+    wrapper_object = {'html':'' , 'categories': []}
+
+    user_input = input_object['queryText']
+    user_category = input_object['category']
+
+    #If len(user_category) == 0 then the user has not yet had the chance to pick a category (or simply did not choose when
+    #when given the opportunity.) If they did select one, then this trumps running nlc.
+    categories = []
+    if not user_category:
+        print "calling nlc"
+        categories = nlc(user_input)
+    else:
+        categories.append(user_category)
+
+    wrapper_object['categories'] = categories
+
+    if len(categories) == 1:
+        wrapper_object['html'] = discovery.query(user_input)
+    return json.dumps(wrapper_object)
 
 @app.route('/audio/blob', methods=['GET', 'POST'])
 def get_blob():
@@ -112,7 +134,11 @@ def get_blob():
         text = Speech.speech_to_text(fname)
         return text
     else:
-        print 'Error saving blob'
+        print "error saving blob"
+
+def nlc(s):
+    print "nlc calling nlc"
+    return classifier.classify(s)
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":

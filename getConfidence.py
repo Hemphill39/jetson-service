@@ -18,9 +18,8 @@ class NLC():
         )
 
     def classify(self, queryString):
-        classes = NLC.classify(self.api_ids['classifier_id'], queryString)
+        classes = self.nlc.classify(self.api_ids['classifier_id'], queryString)
         classes = classes['classes']
-
         results = []
         maxVal = 0
         for cat in classes:
@@ -39,5 +38,4 @@ class NLC():
             results = []
             for element in potentials:
                 results.append(element)
-
             return results
