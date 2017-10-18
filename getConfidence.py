@@ -32,7 +32,7 @@ class NLC():
         potentials = []
         threshold = maxVal-0.4
         for cat in classes:
-            if cat > threshold:
-                potentials.append(cat)
+            if cat['confidence'] > threshold:
+                potentials.append(cat['class_name'])
 
-        return potentials[0:3]
+        return potentials[:3]
