@@ -1,5 +1,5 @@
-import json
 from watson_developer_cloud import NaturalLanguageClassifierV1
+
 
 class NLC():
     creds = {}
@@ -18,21 +18,10 @@ class NLC():
         )
 
     def classify(self, queryString):
-        classes = self.nlc.classify(self.api_ids['classifier_id'], queryString)
-        classes = classes['classes']
-        results = []
-        maxVal = 0
-        for cat in classes:
-            name = cat['class_name']
-            val = cat['confidence']
-            if val > maxVal:
-                maxVal = val
-                results.append((name, val))
+        classes = self.nlc.classify(self.api_ids['classifier_id'], queryString)['classes']
 
-        potentials = []
-        threshold = maxVal-0.4
-        for cat in classes:
-            if cat['confidence'] > threshold:
-                potentials.append(cat['class_name'])
+        maxVal = max(classes, key=lambda cat: cat['confidence'])['confidence']
+        threshold = maxVal - 0.4
+        potentials = [cat['class_name'] for cat in classes if cat['confidence'] > threshold]
 
         return potentials[:3]
