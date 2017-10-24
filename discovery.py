@@ -1,5 +1,4 @@
 from watson_developer_cloud import DiscoveryV1
-import json
 
 
 class Discovery():
@@ -21,12 +20,19 @@ class Discovery():
             version='2017-09-01'
         )
 
-    def query(self, queryString):
-        collections = self.discovery.list_collections(self.api_ids['environment_id'])
-
-        qopts = {'natural_language_query': queryString, 'passages': 'true', 'text': 'true', 'html': 'true',
-                 'return': 'text,html'}
-        my_query = self.discovery.query(self.api_ids['environment_id'], self.api_ids['collection_id'], qopts)
+    def query(self, queryString, label):
+        filterString = 'label::"'+label+'"'
+        qopts = {
+                    'natural_language_query': queryString,
+                    'filter': filterString,
+                    'passages': 'true',
+                    'text': 'true',
+                    'html': 'true',
+                    'return': 'text,html'
+            }
+        my_query = self.discovery.query(self.api_ids['environment_id'],
+                                        self.api_ids['collection_id'],
+                                        qopts)
 
         matches = my_query['results']
 
