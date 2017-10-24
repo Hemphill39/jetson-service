@@ -91,9 +91,9 @@ def audiosend():
     return app.send_static_file('audio.html')
 
 
-@app.route('/api/query/<query>')
-def query_watson(query):
-    query_obj = json.loads(query)
+@app.route('/api/query', methods=['POST'])
+def query_watson():
+    query_obj = request.get_json()
     return jsonify(result=handle_input(query_obj))
 
 
