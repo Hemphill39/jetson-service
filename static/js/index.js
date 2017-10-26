@@ -20,17 +20,19 @@ var query = function(queryText, category) {
 	    	// If the Watson NLC was able to correctly classify the request, then it will just return html
 	    	if (wrapper_object['html'].length > 0){
 					for (var i = 0; i < wrapper_object['html'].length; i++){
-				    var s = '#result' + i;
+				    	var s = '#result' + i;
 						$(s).html(wrapper_object['html'][i]);
 					}
 		    	// $("#result1").html(wrapper_object['html']);
-		    	$( "#category-dropdown-button" ).hide();
+				$( "#category-dropdown-button" ).hide();
+			$ (" #accordion").show();
 	    	}
 
 	    	//Otherwise we need to some logic to populate and show the dropdown box
 	    	//to let the user choose a category for their query
 	    	else{
-	    		$( "#category-dropdown-button" ).show();
+				$( "#category-dropdown-button" ).show();
+				$("#accordion").hide();
 
 	    		var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 	    		$( "#category-dropdown" ).empty()
@@ -38,7 +40,7 @@ var query = function(queryText, category) {
 	    			category = wrapper_object['categories'][i]
 	    			$( "#category-dropdown" ).append( '<a class="dropdown-item" href="#">' + category + '</a>');
 	    		}
-	    		$("#result").html(outstring);
+	    		$("#result0").html(outstring);
 	    	}
 
 	        $("#result-container").show();
