@@ -57,8 +57,8 @@ if 'VCAP_SERVICES' in os.environ:
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-elif os.path.isfile('vcap-local-back.json'):
-    with open('vcap-local-back.json') as f:
+elif os.path.isfile('vcap-local.json'):
+    with open('vcap-local.json') as f:
         vcap = json.load(f)
 
         discreds = vcap['discovery'][0]['credentials']
@@ -82,20 +82,18 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
 
-
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
-
 
 @app.route('/audio')
 def audiosend():
     return app.send_static_file('audio.html')
 
 
-@app.route('/api/query/<query>')
-def query_watson(query):
-    query_obj = json.loads(query)
+@app.route('/api/query', methods=['POST'])
+def query_watson():
+    query_obj = request.get_json()
     return jsonify(result=handle_input(query_obj))
 
 
@@ -103,7 +101,11 @@ def handle_input(input_object):
     user_input = input_object['queryText']
     user_category = input_object['category']
 
-    wrapper_object = {'html': '', 'categories': []}
+def handle_input(input_object):
+    wrapper_object = {'html':'' , 'categories': []}
+
+    user_input = input_object['queryText']
+    user_category = input_object['category']
 
     categories = []
     if not user_category:

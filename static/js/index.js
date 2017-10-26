@@ -5,9 +5,15 @@ var query = function(queryText, category) {
 	package['queryText'] = queryText;
 	package['category'] = category;
 
-	var url = "/api/query/" + JSON.stringify(package);
+	var url = "/api/query";
 
-	$.ajax({url: url, success: function(result){
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: JSON.stringify(package),
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8',
+		success: function(result){
 
 	    	var wrapper_object = JSON.parse(result.result);
 
