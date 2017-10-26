@@ -98,10 +98,6 @@ def query_watson():
 
 
 def handle_input(input_object):
-    user_input = input_object['queryText']
-    user_category = input_object['category']
-
-def handle_input(input_object):
     wrapper_object = {'html':'' , 'categories': []}
 
     user_input = input_object['queryText']
