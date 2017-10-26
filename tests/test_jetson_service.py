@@ -22,5 +22,10 @@ class JetsonServiceTestCase(unittest.TestCase):
         self.app.post('/api/query', data=dict(queryText='query', category='washer'))
         handle_input_mock.assert_called_once()
 
+    @patch('welcome.handle_input', return_value='tested query')
+    def test_query_watson_should_call_handle_input_2(self, handle_input_mock):
+        self.app.post('/api/query', data=dict(queryText='query', category='washer'))
+        handle_input_mock.assert_called_once()
+
 if __name__ == '__main__':
     unittest.main()
