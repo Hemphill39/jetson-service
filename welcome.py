@@ -58,7 +58,7 @@ if 'VCAP_SERVICES' in os.environ:
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
 elif os.path.isfile('vcap-local.json'):
-    with open('vcap-local-back.json') as f:
+    with open('vcap-local.json') as f:
         vcap = json.load(f)
 
         discreds = vcap['discovery'][0]['credentials']
