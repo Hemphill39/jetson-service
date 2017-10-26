@@ -19,7 +19,11 @@ var query = function(queryText, category) {
 
 	    	// If the Watson NLC was able to correctly classify the request, then it will just return html
 	    	if (wrapper_object['html'].length > 0){
-		    	$("#result").html(wrapper_object['html']);
+					for (var i = 0; i < wrapper_object['html'].length; i++){
+				    var s = '#result' + i;
+						$(s).html(wrapper_object['html'][i]);
+					}
+		    	// $("#result1").html(wrapper_object['html']);
 		    	$( "#category-dropdown-button" ).hide();
 	    	}
 
@@ -38,12 +42,12 @@ var query = function(queryText, category) {
 	    	}
 
 	        $("#result-container").show();
-	        $("#query-text").removeAttr("disabled"); 
+	        $("#query-text").removeAttr("disabled");
 
 	    },
-	      	error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        		console.error("Status: " + textStatus); console.error("Error: " + errorThrown); 
-        		$("#query-text").removeAttr("disabled"); 
+	      	error: function(XMLHttpRequest, textStatus, errorThrown) {
+        		console.error("Status: " + textStatus); console.error("Error: " + errorThrown);
+        		$("#query-text").removeAttr("disabled");
     	}});
 }
 
@@ -56,11 +60,11 @@ $( document ).ready(function() {
 
 	    var queryText = $('#query-text').val();
 		var category = selected_classifier;
-		
+
 		$("#query-text").attr("disabled", "disabled");
-		
+
 		query(queryText, category);
-	    
+
 	});
 
 	$('#query-text').keypress(function(e){

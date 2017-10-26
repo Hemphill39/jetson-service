@@ -35,6 +35,12 @@ class Discovery():
                                         qopts)
 
         matches = my_query['results']
+        htmlList = []
+        max_score = matches[0]['html']
+        for (i in range(3)):
+            if (max_score - matches[i]['html'] <0.1):
+                scores.append(matches[i]['html'])
 
-        topMatch = matches[0]['html']
-        return topMatch
+        # topMatch = matches[0]['html']
+        # return topMatch
+        return htmlList 
