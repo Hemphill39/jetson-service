@@ -96,6 +96,7 @@ def query_watson():
     query_obj = request.get_json()
     return jsonify(result=handle_input(query_obj))
 
+
 def handle_input(input_object):
     wrapper_object = {'html':'' , 'categories': []}
 
@@ -104,7 +105,7 @@ def handle_input(input_object):
 
     categories = []
     if not user_category:
-        categories = nlc(user_input)
+        categories = classifier.classify(user_input)
     else:
         categories.append(user_category)
 
@@ -123,10 +124,6 @@ def get_blob():
         a.save(fname)
         text = Speech.speech_to_text(fname)
         return text
-
-
-def nlc(s):
-    return classifier.classify(s)
 
 
 port = os.getenv('PORT', '5000')
