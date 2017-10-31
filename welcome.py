@@ -82,9 +82,11 @@ elif os.path.isfile('vcap-local.json'):
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
 
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
+
 
 @app.route('/audio')
 def audiosend():
@@ -98,7 +100,7 @@ def query_watson():
 
 
 def handle_input(input_object):
-    wrapper_object = {'error': '', 'html':'' , 'categories': []}
+    wrapper_object = {'error': '', 'html': '', 'categories': []}
 
     user_input = input_object['queryText']
     user_category = input_object['category']
