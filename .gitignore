@@ -13,6 +13,7 @@ _mailinglist
 .tox
 .cache/
 .idea/
+*.wav
 vcap-local-back.json
 ghostdriver.log
 
