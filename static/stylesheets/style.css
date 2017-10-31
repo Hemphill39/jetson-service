@@ -20,9 +20,11 @@
 
 body,html {
 	background-color: #00a6d6 !important; 
+  top:0 !important;
 	width : 100%;
-	height: 100%;
-	margin: 0 auto;
+	height: 40vh;
+	margin: 0;
+  margin-top: 0 !important;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
 	color: #ffffff;
 }
@@ -68,6 +70,9 @@ h1 {
 	color: #00aed1;
 }
 
+.let-body-be-top{
+  top:0vh;
+}
 
 table {
 	table-layout: fixed;
@@ -111,11 +116,10 @@ pre {
   margin:10px;
   background: white;
   height: auto;
-  position: absolute;
-  margin-top: 50px;
-  margin-left: -40vw;
-  top: 50%;
-  left: 50%;
+  position: static;
+  margin-top: 56vh;
+  margin-left: 10vw;
+
 
   min-height: 0px;
   padding:20px;
@@ -149,10 +153,10 @@ pre {
     text-align: center;
 }
 
-body {
-   padding-bottom:60px;   /* Height of the footer */
+/*body {
+   padding-bottom:60px;
    overflow:auto;
-}
+}*/
 
 .footer {
    position:fixed;
@@ -175,7 +179,8 @@ body {
 }
 
 .padding{
-	height:80px;
+  position:static;
+
 }
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
