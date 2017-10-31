@@ -110,7 +110,7 @@ pre {
   width: 80%;
   margin:10px;
   background: white;
-  height: 50px;
+  height: auto;
   position: absolute;
   margin-top: 50px;
   margin-left: -40vw;
