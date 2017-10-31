@@ -14,6 +14,7 @@
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
     crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -25,11 +26,12 @@
           <div class="flex-item">4</div>
       </div>
   </div>-->
+  <div id="snackbar"></div>
   <div class="flex-container">
       <div class="flex-row">
         <div class="input-group">
           <span class="input-group-btn">
-            <button id="recordButton" class="btn btn-secondary" type="button" style="height:100%;">Record</button>
+            <button id="recordButton" class="btn btn-secondary" type="button" style="height:100%;padding-left:30px;padding-right:30px"><i id="recordIcon" class="fa fa-microphone" style=""></i></button>
           </span>
           <input type="text" class="form-control" placeholder="What do you need help with?" id="query-text">
           <div class="input-group-btn">
@@ -45,7 +47,6 @@
           </div>
           <button type="button" id="submit-search" class="btn btn-primary" style="display:none;"></button>
         </div>
-      </div>
   </div>
   <div class="watson-container" id="result-container" style="display:none;">
     <div class="row">
@@ -90,11 +91,15 @@
       if (recording){
         startRecording(this);
         $("#recordButton").addClass("active")
+        $("#recordIcon").attr("style","color:red")
+
       }
       else{
         stopRecording(this);
         $("#recordButton").removeClass("active")
         $("#recordButton").prop("disabled", true);
+        $("#recordIcon").attr("style","color:white")
+
       }
   });
 

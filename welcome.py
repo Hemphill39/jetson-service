@@ -82,9 +82,11 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
 
+
 @app.route('/')
 def Welcome():
     return app.send_static_file('index.html')
+
 
 @app.route('/audio')
 def audiosend():
@@ -98,21 +100,24 @@ def query_watson():
 
 
 def handle_input(input_object):
-    wrapper_object = {'html': [] , 'categories': []}
+    wrapper_object = {'error': '', 'html': '', 'categories': []}
 
     user_input = input_object['queryText']
     user_category = input_object['category']
 
-    categories = []
-    if not user_category:
-        categories = nlc(user_input)
-    else:
-        categories.append(user_category)
+    try:
+        categories = []
+        if not user_category:
+            categories = nlc(user_input)
+        else:
+            categories.append(user_category)
 
-    wrapper_object['categories'] = categories
+        wrapper_object['categories'] = categories
 
-    if len(categories) == 1:
-        wrapper_object['html'] = discovery.query(user_input, categories[0])
+        if len(categories) == 1:
+            wrapper_object['html'] = discovery.query(user_input, categories[0])
+    except:
+        wrapper_object['error'] = 'Error searching for request.'
     return json.dumps(wrapper_object)
 
 
