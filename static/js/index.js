@@ -1,5 +1,40 @@
 var selected_classifier = "";
 
+$("#thumbs-up-btn").click(function () {
+	document_id = $("#document-id").val();
+	query = $("query-text").val();
+	sendDiscoveryFeedback(4, document_id, query);
+})
+
+$("#thumbs-down-btn").click(function() {
+	document_id = $("#document-id").val();
+	query = $("query-text").val();
+	sendDiscoveryFeedback(0, document_id, query);
+})
+
+function sendDiscoveryFeedback(feedback, document_id, query) {
+	data = { 
+		feedback : feedback,
+		document_id: document_id,
+		query: query
+	}
+
+	url = "/api/feedback"
+	$.ajax({
+		type:"POST",
+		url: url,
+		data: data,
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8',
+		success: function(result) {
+			showSnackbar("Thank you for your feedback!");
+			$("#feedback-container").hide();
+		}, error: function(err) {
+			showSnackbar("Error sending your feedback");
+		}
+	});
+}
+
 function showSnackbar(message) {
 	// Get the snackbar DIV
 	var snackbar = document.getElementById("snackbar")
@@ -36,6 +71,8 @@ var query = function (queryText, category) {
 				if (wrapper_object['html'].length > 0) {
 					$("#result").html(wrapper_object['html']);
 					$("#category-dropdown-button").hide();
+					$("#feedback-container").show();
+					$("#document-id").val(wrapper_object['document-id']);
 				}
 
 				//Otherwise we need to some logic to populate and show the dropdown box
