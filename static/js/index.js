@@ -38,8 +38,6 @@ var query = function (queryText, category) {
 						var s = '#result' + i;
 						$(s).html(wrapper_object['html'][i - 1]);
 					}
-					//$("#result1").html(wrapper_object['html']);
-					$("#category-dropdown-button").hide();
 					$("#response").hide();
 					$(" #accordion").show();
 				}
