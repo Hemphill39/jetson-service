@@ -36,5 +36,5 @@ class Discovery():
 
         matches = my_query['results']
 
-        topMatch = matches[0]['html']
+        topMatch = matches[0]
         return topMatch

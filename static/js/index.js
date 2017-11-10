@@ -2,13 +2,13 @@ var selected_classifier = "";
 
 $("#thumbs-up-btn").click(function () {
 	document_id = $("#document-id").val();
-	query = $("query-text").val();
-	sendDiscoveryFeedback(4, document_id, query);
+	query = $("#query-text").val();
+	sendDiscoveryFeedback(10, document_id, query);
 })
 
 $("#thumbs-down-btn").click(function() {
 	document_id = $("#document-id").val();
-	query = $("query-text").val();
+	query = $("#query-text").val();
 	sendDiscoveryFeedback(0, document_id, query);
 })
 
@@ -23,7 +23,7 @@ function sendDiscoveryFeedback(feedback, document_id, query) {
 	$.ajax({
 		type:"POST",
 		url: url,
-		data: data,
+		data: JSON.stringify(data),
 		dataType: 'json',
 		contentType: 'application/json; charset=utf-8',
 		success: function(result) {
@@ -72,7 +72,7 @@ var query = function (queryText, category) {
 					$("#result").html(wrapper_object['html']);
 					$("#category-dropdown-button").hide();
 					$("#feedback-container").show();
-					$("#document-id").val(wrapper_object['document-id']);
+					$("#document-id").val(wrapper_object['document_id']);
 				}
 
 				//Otherwise we need to some logic to populate and show the dropdown box

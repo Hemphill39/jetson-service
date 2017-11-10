@@ -18,6 +18,7 @@ from flask import Flask, jsonify, request
 from discovery import Discovery
 from speech_to_text import Speech_to_text
 from getConfidence import NLC
+import requests
 
 app = Flask(__name__)
 
@@ -98,6 +99,26 @@ def query_watson():
     query_obj = request.get_json()
     return jsonify(result=handle_input(query_obj))
 
+@app.route('/api/feedback', methods=['POST'])
+def submit_feedback():
+    request_obj = request.get_json()
+    discovery_feedback(request_obj['query'], request_obj['document_id'], request_obj['feedback'])
+    return jsonify(result={"response" : "Feedback submitted"})
+
+def discovery_feedback(query, document_id, relevance):
+    url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data?version=2017-11-07".format(discovery_environment_id,discovery_collection_id)
+
+    data = {
+    "natural_language_query": query,
+        "examples": [
+            {
+                "document_id": document_id,
+                "relevance": relevance
+            }
+        ]
+    }
+    r = requests.post(url, auth=(discovery.creds['username'], discovery.creds['password']), json=data)
+    print r
 
 def handle_input(input_object):
     wrapper_object = {'error': '', 'html': '', 'categories': []}
@@ -115,7 +136,9 @@ def handle_input(input_object):
         wrapper_object['categories'] = categories
 
         if len(categories) == 1:
-            wrapper_object['html'] = discovery.query(user_input, categories[0])
+            match = discovery.query(user_input, categories[0])
+            wrapper_object['html'] = match['html']
+            wrapper_object['document_id'] = match['id']
     except:
         wrapper_object['error'] = 'Error searching for request.'
     return json.dumps(wrapper_object)
