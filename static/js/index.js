@@ -1,14 +1,14 @@
 var selected_classifier = "";
 
 $("#thumbs-up-btn").click(function () {
-	document_id = $("#document-id").val();
-	query = $("#query-text").val();
+	var document_id = $("#document-id").val();
+	var query = $("#query-text").val();
 	sendDiscoveryFeedback(10, document_id, query);
 })
 
 $("#thumbs-down-btn").click(function() {
-	document_id = $("#document-id").val();
-	query = $("#query-text").val();
+	var document_id = $("#document-id").val();
+	var query = $("#query-text").val();
 	sendDiscoveryFeedback(0, document_id, query);
 })
 
@@ -47,7 +47,7 @@ function showSnackbar(message) {
 	setTimeout(function () { snackbar.className = snackbar.className.replace("show", ""); }, 5000);
 }
 
-var query = function (queryText, category) {
+function query(queryText, category) {
 	var package = {}
 	package['queryText'] = queryText;
 	package['category'] = category;
@@ -70,7 +70,6 @@ var query = function (queryText, category) {
 				// If the Watson NLC was able to correctly classify the request, then it will just return html
 				if (wrapper_object['html'].length > 0) {
 					$("#result").html(wrapper_object['html']);
-					$("#category-dropdown-button").hide();
 					$("#feedback-container").show();
 					$("#document-id").val(wrapper_object['document_id']);
 				}
@@ -79,6 +78,7 @@ var query = function (queryText, category) {
 				//to let the user choose a category for their query
 				else {
 					$("#category-dropdown-button").show();
+					$("#feedback-container").hide();
 
 					var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 					$("#category-dropdown").empty()
