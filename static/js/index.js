@@ -36,10 +36,18 @@ var query = function (queryText, category) {
 				if (wrapper_object['html'].length > 0) {
 					for (var i = 1; i < wrapper_object['html'].length + 1; i++) {
 						var s = '#result' + i;
+						var t = '#collapseheader' + i;
 						var rawHTML = wrapper_object['html'][i - 1];
-						rawHTML = rawHTML.substring[4]
-						var end = rawHTML.indexOf('<')
-						rawHTML = rawHTML.substring[0, end]
+						rawHTML = rawHTML.substring(4);
+						var end = rawHTML.indexOf('<');
+						if (end > 50){
+							end = 50;
+							rawHTML = rawHTML.substring(0, end);
+							rawHTML = rawHTML+ "..."
+						}else{
+							rawHTML = rawHTML.substring(0, end);
+						}
+						$(t).html(rawHTML+"<br>");
 						$(s).html(wrapper_object['html'][i - 1]);
 
 					}

@@ -178,6 +178,12 @@ pre {
     font-size:15px;
 }
 
+.collapse-head{
+	white-space: nowrap;
+  overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .padding{
 	height: 74px;
   position:static;
