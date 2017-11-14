@@ -29,19 +29,37 @@ var query = function (queryText, category) {
 
 			var wrapper_object = JSON.parse(result.result);
 
+			// If the Watson NLC was able to correctly classify the request, then it will just return html
 			if (wrapper_object['error'].length > 0) {
 				showSnackbar(wrapper_object['error']);
 			} else {
-				// If the Watson NLC was able to correctly classify the request, then it will just return html
 				if (wrapper_object['html'].length > 0) {
-					$("#result").html(wrapper_object['html']);
-					$("#category-dropdown-button").hide();
-				}
+					for (var i = 1; i < wrapper_object['html'].length + 1; i++) {
+						var resulttag = '#result' + i;
+						var collapsetag = '#collapseheader' + i;
+						var rawHTML = wrapper_object['html'][i - 1];
+						rawHTML = rawHTML.substring(4);
+						var end = rawHTML.indexOf('<');
+						if (end > 50){
+							end = 50;
+							rawHTML = rawHTML.substring(0, end);
+							rawHTML = rawHTML+ "..."
+						}else{
+							rawHTML = rawHTML.substring(0, end);
+						}
+						$(collapsetag).html(rawHTML+"<br>");
+						$(resulttag).html(wrapper_object['html'][i - 1]);
 
+					}
+					$("#response").hide();
+					$(" #accordion").show();
+				}
 				//Otherwise we need to some logic to populate and show the dropdown box
 				//to let the user choose a category for their query
 				else {
 					$("#category-dropdown-button").show();
+					$("#response").show();
+					$("#accordion").hide();
 
 					var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 					$("#category-dropdown").empty()
@@ -49,12 +67,13 @@ var query = function (queryText, category) {
 						category = wrapper_object['categories'][i]
 						$("#category-dropdown").append('<a class="dropdown-item" href="#">' + category + '</a>');
 					}
-					$("#result").html(outstring);
+					$("#result0").html(outstring);
 				}
-
-				$("#result-container").show();
 			}
+
+			$("#result-container").show();
 			$("#query-text").removeAttr("disabled");
+
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			$("#query-text").removeAttr("disabled");
@@ -66,8 +85,10 @@ var query = function (queryText, category) {
 $(document).ready(function () {
 
 	$("#category-dropdown-button").hide();
-
+	$("#response").hide();
 	$("#submit-search").click(function () {
+		console.log('Search Sent with classifier ' + selected_classifier);
+
 		var queryText = $('#query-text').val();
 		var category = selected_classifier;
 
