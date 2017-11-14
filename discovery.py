@@ -38,9 +38,7 @@ class Discovery():
         htmlList = []
         max_score = matches[0]['score']
         for i in range(3):
-            if (max_score - matches[i]['score'] <0.1):
+            if (max_score - matches[i]['score'] < 0.1):
                 htmlList.append(matches[i]['html'])
 
-        # topMatch = matches[0]['html']
-        # return topMatch
         return htmlList

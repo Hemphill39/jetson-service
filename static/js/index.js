@@ -35,8 +35,8 @@ var query = function (queryText, category) {
 			} else {
 				if (wrapper_object['html'].length > 0) {
 					for (var i = 1; i < wrapper_object['html'].length + 1; i++) {
-						var s = '#result' + i;
-						var t = '#collapseheader' + i;
+						var resulttag = '#result' + i;
+						var collapsetag = '#collapseheader' + i;
 						var rawHTML = wrapper_object['html'][i - 1];
 						rawHTML = rawHTML.substring(4);
 						var end = rawHTML.indexOf('<');
@@ -47,8 +47,8 @@ var query = function (queryText, category) {
 						}else{
 							rawHTML = rawHTML.substring(0, end);
 						}
-						$(t).html(rawHTML+"<br>");
-						$(s).html(wrapper_object['html'][i - 1]);
+						$(collapsetag).html(rawHTML+"<br>");
+						$(resulttag).html(wrapper_object['html'][i - 1]);
 
 					}
 					$("#response").hide();
