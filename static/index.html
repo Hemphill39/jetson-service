@@ -20,7 +20,7 @@
 
 <body>
   <!--<div class="flex-container">
-      <div class="row"> 
+      <div class="row">
           <div class="flex-item">1</div>
           <div class="flex-item">2</div>
           <div class="flex-item">3</div>
@@ -68,8 +68,28 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div id="result">
+        <div id="result0" id="response"></div>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="collapse-head" id="collapseheader1" data-toggle="collapse" data-parent="#accordion" href="#collapse1"></a>
+                <a class="collapse-head" id="collapseheader2" data-toggle="collapse" data-parent="#accordion" href="#collapse2"></a>
+                <a class="collapse-head" id="collapseheader3" data-toggle="collapse" data-parent="#accordion" href="#collapse3"></a>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+              <div id="result1"></div>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse in">
+              <div id="result2"></div>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse in">
+              <div id="result3"></div>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -78,8 +98,8 @@
     <div class="watson">
       Powered by Watson
     </div>
+    <pre id="log" style="visibility:hidden;"></pre>
   </div>
-  <pre id="log" style="visibility:hidden;"></pre>
 
   <script>
     var recording = false;
@@ -99,6 +119,7 @@
 
       }
     });
+<<<<<<< HEAD
 
     function __log(e, data) {
       log.innerHTML += "\n" + e + " " + (data || '');
@@ -132,9 +153,47 @@
         uploadAudio2(blob);
       });
     }
+=======
+>>>>>>> c1fb3c16312ed43475d6a51df97f993db2dc5fe3
+
+    function __log(e, data) {
+      log.innerHTML += "\n" + e + " " + (data || '');
+    }
+
+    var audio_context;
+    var recorder;
+
+    function startUserMedia(stream) {
+      var input = audio_context.createMediaStreamSource(stream);
+      // Uncomment if you want the audio to feedback directly
+      //input.connect(audio_context.destination);
+      //__log('Input connected to audio context destination.');
+
+      recorder = new Recorder(input);
+    }
+
+<<<<<<< HEAD
+=======
+    function startRecording(button) {
+      recorder && recorder.record();
+    }
+
+    function stopRecording(button) {
+      recorder && recorder.stop();
+      // create WAV download link using audio data blob
+      createDownloadLink();
+      recorder.clear();
+    }
+
+    function createDownloadLink() {
+      recorder && recorder.exportWAV(function (blob) {
+        uploadAudio2(blob);
+      });
+    }
 
 
 
+>>>>>>> c1fb3c16312ed43475d6a51df97f993db2dc5fe3
     function uploadAudio2(blob) {
       var fd = new FormData();
       fd.append('fname', 'test.wav');
