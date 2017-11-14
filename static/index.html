@@ -56,15 +56,6 @@
       <div class="col-9">
         <h2>Was this article helpful?</h2>
       </div>
-      <div id="feedback-column" class="col-3">
-        <button id="thumbs-up-btn" type="button" class="btn btn-secondary">
-          <i class="fa fa-thumbs-o-up"></i>
-        </button>
-        <button id="thumbs-down-btn" type="button" class="btn btn-secondary">
-          <i class="fa fa-thumbs-o-down"></i>
-        </button>
-        <input type="hidden" name="document-id" id="document-id">
-      </div>
     </div>
     <div class="row">
       <div class="col-12">
@@ -79,13 +70,40 @@
               </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
+                <div id="feedback-column" class="col-3">
+                    <button id="thumbs-up-btn1" type="button" class="btn btn-secondary thumbs-up">
+                      <i class="fa fa-thumbs-o-up"></i>
+                    </button>
+                    <button id="thumbs-down-btn1" type="button" class="btn btn-secondary thumbs-down">
+                      <i class="fa fa-thumbs-o-down"></i>
+                    </button>
+                  </div>
               <div id="result1"></div>
+              <input type="hidden" name="document-id2" id="document-id2">
             </div>
             <div id="collapse2" class="panel-collapse collapse in">
+                <div id="feedback-column" class="col-3">
+                    <button id="thumbs-up-btn2" type="button" class="btn btn-secondary thumbs-up">
+                      <i class="fa fa-thumbs-o-up"></i>
+                    </button>
+                    <button id="thumbs-down-btn2" type="button" class="btn btn-secondary thumbs-down">
+                      <i class="fa fa-thumbs-o-down"></i>
+                    </button>
+                  </div>
               <div id="result2"></div>
+              <input type="hidden" name="document-id2" id="document-id2">
             </div>
             <div id="collapse3" class="panel-collapse collapse in">
+                <div id="feedback-column" class="col-3">
+                    <button id="thumbs-up-btn3" type="button" class="btn btn-secondary thumbs-up">
+                      <i class="fa fa-thumbs-o-up"></i>
+                    </button>
+                    <button id="thumbs-down-btn3" type="button" class="btn btn-secondary thumbs-down">
+                      <i class="fa fa-thumbs-o-down"></i>
+                    </button>
+                  </div>
               <div id="result3"></div>
+              <input type="hidden" name="document-id3" id="document-id3">
             </div>
           </div>
         </div>
@@ -119,7 +137,6 @@
 
       }
     });
-<<<<<<< HEAD
 
     function __log(e, data) {
       log.innerHTML += "\n" + e + " " + (data || '');
@@ -153,47 +170,7 @@
         uploadAudio2(blob);
       });
     }
-=======
->>>>>>> c1fb3c16312ed43475d6a51df97f993db2dc5fe3
 
-    function __log(e, data) {
-      log.innerHTML += "\n" + e + " " + (data || '');
-    }
-
-    var audio_context;
-    var recorder;
-
-    function startUserMedia(stream) {
-      var input = audio_context.createMediaStreamSource(stream);
-      // Uncomment if you want the audio to feedback directly
-      //input.connect(audio_context.destination);
-      //__log('Input connected to audio context destination.');
-
-      recorder = new Recorder(input);
-    }
-
-<<<<<<< HEAD
-=======
-    function startRecording(button) {
-      recorder && recorder.record();
-    }
-
-    function stopRecording(button) {
-      recorder && recorder.stop();
-      // create WAV download link using audio data blob
-      createDownloadLink();
-      recorder.clear();
-    }
-
-    function createDownloadLink() {
-      recorder && recorder.exportWAV(function (blob) {
-        uploadAudio2(blob);
-      });
-    }
-
-
-
->>>>>>> c1fb3c16312ed43475d6a51df97f993db2dc5fe3
     function uploadAudio2(blob) {
       var fd = new FormData();
       fd.append('fname', 'test.wav');

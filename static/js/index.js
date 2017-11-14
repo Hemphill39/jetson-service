@@ -1,14 +1,16 @@
 var selected_classifier = "";
 
-$("#thumbs-up-btn").click(function () {
-	var document_id = $("#document-id").val();
-	var query = $("#query-text").val();
+$(".thumbs-up").click(function () {
+	var resultTag = this.id[this.id.length - 1]
+	var document_id = $("#document-id" + resultTag).val();
+	var query = $("#query-text" + resultTag).val();
 	sendDiscoveryFeedback(10, document_id, query);
 })
 
-$("#thumbs-down-btn").click(function() {
-	var document_id = $("#document-id").val();
-	var query = $("#query-text").val();
+$(".thumbs-down").click(function() {
+	var resultTag = this.id[this.id.length - 1]
+	var document_id = $("#document-id" + resultTag).val();
+	var query = $("#query-text" + resultTag).val();
 	sendDiscoveryFeedback(0, document_id, query);
 })
 
