@@ -37,7 +37,7 @@ class Discovery():
         matches = my_query['results']
         htmlList = []
         max_score = matches[0]['score']
-        for i in range(3):
+        for i in range(len(matches[0:3])):
             if (max_score - matches[i]['score'] < 0.1):
                 htmlList.append(matches[i]['html'])
 
