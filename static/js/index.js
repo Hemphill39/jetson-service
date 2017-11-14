@@ -29,8 +29,10 @@ function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
 		dataType: 'json',
 		contentType: 'application/json; charset=utf-8',
 		success: function(result) {
-			showSnackbar("Thank you for your feedback!");
-			$("#feedback-container" + resultTag).hide();
+			if (result.result['response']) {
+				showSnackbar("Thank you for your feedback!");
+				$("#feedback-container" + resultTag).hide();
+			}			
 		}, error: function(err) {
 			showSnackbar("Error sending your feedback");
 		}
@@ -69,6 +71,7 @@ function query(queryText, category) {
 			// If the Watson NLC was able to correctly classify the request, then it will just return html
 			if (discoveryResponse['error'].length > 0) {
 				showSnackbar(discoveryResponse['error']);
+				$("#query-text").removeAttr("disabled");
 			} else {
 				if (discoveryResponse['articles'].length > 0) {
 
@@ -76,7 +79,7 @@ function query(queryText, category) {
 						var resultTag = '#result' + (i+1);
 						var collapseTag = '#collapseheader' + (i+1);
 						var article = discoveryResponse['articles'][i]
-						$("#document-id" + resultTag).val(resultTag);
+						$("#document-id" + (i+1)).val(article['document_id']);
 						var rawHTML = article['html'];
 						var document_id = article['id'];
 						rawHTML = rawHTML.substring(4);
@@ -110,14 +113,15 @@ function query(queryText, category) {
 					}
 					$("#result0").html(outstring);
 				}
+				$("#result-container").show();
+				$("#query-text").removeAttr("disabled");
 			}
-
-			$("#result-container").show();
-			$("#query-text").removeAttr("disabled");
+			
 
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			$("#query-text").removeAttr("disabled");
+			$("#result-container").hide();
 			showSnackbar('Error while searching for request');
 		}
 	});
