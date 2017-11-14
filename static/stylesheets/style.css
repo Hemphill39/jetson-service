@@ -229,6 +229,10 @@ However, delay the fade out process for 2.5 seconds */
     justify-content:flex-end;
 }
 
+.thumbs-down {
+    margin-left: 1em;
+}
+
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}

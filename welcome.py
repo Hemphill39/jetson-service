@@ -121,7 +121,7 @@ def discovery_feedback(query, document_id, relevance):
     print r
 
 def handle_input(input_object):
-    wrapper_object = {'error': '', 'html': '', 'categories': []}
+    return_object = {'error': '', 'articles': [], 'categories': []}
 
     user_input = input_object['queryText']
     user_category = input_object['category']
@@ -133,15 +133,15 @@ def handle_input(input_object):
         else:
             categories.append(user_category)
 
-        wrapper_object['categories'] = categories
+        return_object['categories'] = categories
 
         if len(categories) == 1:
-            match = discovery.query(user_input, categories[0])
-            wrapper_object['html'] = match['html']
-            wrapper_object['document_id'] = match['id']
+            matches = discovery.query(user_input, categories[0])
+            for match in matches:
+                return_object['articles'].append({'html': match['html'], 'document_id': match['id']})
     except:
-        wrapper_object['error'] = 'Error searching for request.'
-    return json.dumps(wrapper_object)
+        return_object['error'] = 'Error searching for request.'
+    return json.dumps(return_object)
 
 
 @app.route('/audio/blob', methods=['GET', 'POST'])

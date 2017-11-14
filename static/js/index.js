@@ -1,20 +1,20 @@
 var selected_classifier = "";
 
 $(".thumbs-up").click(function () {
-	var resultTag = this.id[this.id.length - 1]
+	var resultTag = this.id[this.id.length - 1];
 	var document_id = $("#document-id" + resultTag).val();
-	var query = $("#query-text" + resultTag).val();
-	sendDiscoveryFeedback(10, document_id, query);
+	var query = $("#query-text").val();
+	sendDiscoveryFeedback(10, document_id, query, resultTag);
 })
 
 $(".thumbs-down").click(function() {
-	var resultTag = this.id[this.id.length - 1]
+	var resultTag = this.id[this.id.length - 1];
 	var document_id = $("#document-id" + resultTag).val();
-	var query = $("#query-text" + resultTag).val();
-	sendDiscoveryFeedback(0, document_id, query);
+	var query = $("#query-text").val();
+	sendDiscoveryFeedback(0, document_id, query, resultTag);
 })
 
-function sendDiscoveryFeedback(feedback, document_id, query) {
+function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
 	data = { 
 		feedback : feedback,
 		document_id: document_id,
@@ -30,7 +30,7 @@ function sendDiscoveryFeedback(feedback, document_id, query) {
 		contentType: 'application/json; charset=utf-8',
 		success: function(result) {
 			showSnackbar("Thank you for your feedback!");
-			$("#feedback-container").hide();
+			$("#feedback-container" + resultTag).hide();
 		}, error: function(err) {
 			showSnackbar("Error sending your feedback");
 		}
@@ -64,21 +64,21 @@ function query(queryText, category) {
 		contentType: 'application/json; charset=utf-8',
 		success: function (result) {
 
-			var wrapper_object = JSON.parse(result.result);
+			var discoveryResponse = JSON.parse(result.result);
 
 			// If the Watson NLC was able to correctly classify the request, then it will just return html
-			if (wrapper_object['error'].length > 0) {
-				showSnackbar(wrapper_object['error']);
+			if (discoveryResponse['error'].length > 0) {
+				showSnackbar(discoveryResponse['error']);
 			} else {
-				if (wrapper_object['html'].length > 0) {
-					$("#result").html(wrapper_object['html']);
-					$("#feedback-container").show();
-					$("#document-id").val(wrapper_object['document_id']);
+				if (discoveryResponse['articles'].length > 0) {
 
-					for (var i = 1; i < wrapper_object['html'].length + 1; i++) {
-						var resulttag = '#result' + i;
-						var collapsetag = '#collapseheader' + i;
-						var rawHTML = wrapper_object['html'][i - 1];
+					for (var i = 0; i < discoveryResponse['articles'].length; i++) {
+						var resultTag = '#result' + (i+1);
+						var collapseTag = '#collapseheader' + (i+1);
+						var article = discoveryResponse['articles'][i]
+						$("#document-id" + resultTag).val(resultTag);
+						var rawHTML = article['html'];
+						var document_id = article['id'];
 						rawHTML = rawHTML.substring(4);
 						var end = rawHTML.indexOf('<');
 						if (end > 50){
@@ -88,8 +88,8 @@ function query(queryText, category) {
 						}else{
 							rawHTML = rawHTML.substring(0, end);
 						}
-						$(collapsetag).html(rawHTML+"<br>");
-						$(resulttag).html(wrapper_object['html'][i - 1]);
+						$(collapseTag).html(rawHTML+"<br>");
+						$(resultTag).html(article['html']);
 					}
 					$("#response").hide();
 					$(" #accordion").show();
@@ -104,8 +104,8 @@ function query(queryText, category) {
 
 					var outstring = "<p>To clarify your results, please pick a category from the box on the right.</p>"
 					$("#category-dropdown").empty()
-					for (var i = 0; i < wrapper_object['categories'].length; i++) {
-						category = wrapper_object['categories'][i]
+					for (var i = 0; i < discoveryResponse['categories'].length; i++) {
+						category = discoveryResponse['categories'][i]
 						$("#category-dropdown").append('<a class="dropdown-item" href="#">' + category + '</a>');
 					}
 					$("#result0").html(outstring);
