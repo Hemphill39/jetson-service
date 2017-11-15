@@ -1,5 +1,5 @@
 from watson_developer_cloud import DiscoveryV1
-
+import logging
 #I made dis.
 class Discovery():
     creds = {}
@@ -21,6 +21,8 @@ class Discovery():
         )
 
     def query(self, queryString, label):
+        logging.basicConfig(filename="example.log", level=logging.INFO)
+        logging.info("querystring: "+queryString + " label: " + label)
         filterString = 'label::"'+label+'"'
         qopts = {
                     'natural_language_query': queryString,
@@ -40,5 +42,6 @@ class Discovery():
         for i in range(len(matches[0:3])):
             if (max_score - matches[i]['score'] < 0.1):
                 htmlList.append(matches[i]['html'])
+        logging.info(htmlList)
 
         return htmlList
