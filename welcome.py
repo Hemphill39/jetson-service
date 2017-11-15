@@ -14,6 +14,7 @@
 
 import os
 import json
+import logging
 from flask import Flask, jsonify, request
 from discovery import Discovery
 from speech_to_text import Speech_to_text
@@ -32,6 +33,8 @@ discovery_environment_id = "67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 classifier_id = "ebd15ex229-nlc-54210"
 
 if 'VCAP_SERVICES' in os.environ:
+    logging.basicConfig(filename='/docs/logs/example.log',level=logging.DEBUG)
+    logging.info('Using VCAP on remote')
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
     if 'discovery' in vcap:
         discreds = vcap['discovery'][0]['credentials']
@@ -58,7 +61,9 @@ if 'VCAP_SERVICES' in os.environ:
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
 elif os.path.isfile('vcap-local.json'):
+    logging.basicConfig(filename="example.log", level=logging.INFO)
     with open('vcap-local.json') as f:
+        logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
 
         discreds = vcap['discovery'][0]['credentials']
