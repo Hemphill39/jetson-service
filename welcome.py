@@ -87,6 +87,7 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
 
+logging.info('Using discovery service with collection_id ' + discovery.api_ids['collection_id'] + '\nconfig_id: ' + discovery.api_ids['configuration_id'] + '\nenv_id: ' + discovery.api_ids['environment_id'])
 
 @app.route('/')
 def Welcome():
@@ -109,6 +110,8 @@ def handle_input(input_object):
 
     user_input = input_object['queryText']
     user_category = input_object['category']
+
+    logging.info('welcome.handle_input(): queryText: ' + user_input + ' category: ' + user_category)
 
     try:
         categories = []

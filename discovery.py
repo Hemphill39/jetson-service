@@ -21,8 +21,7 @@ class Discovery():
         )
 
     def query(self, queryString, label):
-        logging.basicConfig(filename="discovery.log", level=logging.INFO)
-        logging.info("querystring: " +queryString + " label: " + label)
+        logging.info("discvoery query(): querystring: " + queryString + " label: " + label + "\n")
         filterString = 'label::"'+label+'"'
         qopts = {
                     'natural_language_query': queryString,
