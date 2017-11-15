@@ -61,7 +61,7 @@ if 'VCAP_SERVICES' in os.environ:
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
 elif os.path.isfile('vcap-local-back.json'):
-    logging.basicConfig(filename="welcome.log", level=logging.INFO)
+    logging.basicConfig(filename="welcome.log", level=logging.DEBUG)
     with open('vcap-local-back.json') as f:
         logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
@@ -86,9 +86,6 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
-
-if discovery is not None:
-    logging.info('Using discovery service with collection_id ' + discovery.api_ids['collection_id'] + '\nconfig_id: ' + discovery.api_ids['configuration_id'] + '\nenv_id: ' + discovery.api_ids['environment_id'])
 
 @app.route('/')
 def Welcome():
