@@ -14,12 +14,11 @@ class Discovery():
         self.api_ids['configuration_id'] = config_id
         self.api_ids['environment_id'] = environment_id
 
-        if url is not None:
-            self.discovery = DiscoveryV1(
-                username=self.creds['username'],
-                password=self.creds['password'],
-                version='2017-09-01'
-            )
+        self.discovery = DiscoveryV1(
+            username=self.creds['username'],
+            password=self.creds['password'],
+            version='2017-09-01'
+        )
 
     def query(self, queryString, label):
         logging.info("discvoery query(): querystring: " + queryString + " label: " + label + "\n")
