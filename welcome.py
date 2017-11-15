@@ -32,6 +32,8 @@ discovery_environment_id = "67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 
 classifier_id = "ebd15ex229-nlc-54210"
 
+discovery = Discovery(None,None,None,None,None,None)
+
 if 'VCAP_SERVICES' in os.environ:
     logging.basicConfig(filename='welcome.log',level=logging.DEBUG)
     logging.info('Using VCAP on remote')
