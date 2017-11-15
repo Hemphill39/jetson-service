@@ -33,7 +33,7 @@ discovery_environment_id = "67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 classifier_id = "ebd15ex229-nlc-54210"
 
 if 'VCAP_SERVICES' in os.environ:
-    logging.basicConfig(filename='/docs/logs/example.log',level=logging.DEBUG)
+    logging.basicConfig(filename='welcome.log',level=logging.DEBUG)
     logging.info('Using VCAP on remote')
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
     if 'discovery' in vcap:
@@ -61,7 +61,7 @@ if 'VCAP_SERVICES' in os.environ:
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
 elif os.path.isfile('vcap-local-back.json'):
-    logging.basicConfig(filename="example.log", level=logging.INFO)
+    logging.basicConfig(filename="welcome.log", level=logging.INFO)
     with open('vcap-local-back.json') as f:
         logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
