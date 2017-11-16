@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="static/stylesheets/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
     crossorigin="anonymous">
@@ -31,7 +32,7 @@
     <div class="input-group">
       <span class="input-group-btn">
         <button id="recordButton" class="btn btn-secondary" type="button" style="height:100%;padding-left:30px;padding-right:30px">
-          <i id="recordIcon" class="fa fa-microphone" style=""></i>
+          <i id="recordIcon" class="fa fa-microphone"></i>
         </button>
       </span>
       <input type="text" class="form-control" placeholder="What do you need help with?" id="query-text">
@@ -64,12 +65,51 @@
               </h4>
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
+              <div class="row" id="feedback-container1">
+                <div class="col-9">
+                  <h2>Was this article helpful?</h2>
+                </div>
+                <div id="feedback-column1" class="col-3" style="display:flex;justify-content:flex-end;">
+                  <button id="thumbs-up-btn1" type="button" class="btn btn-secondary thumbs-up">
+                    <i class="fa fa-thumbs-o-up"></i>
+                  </button>
+                  <button id="thumbs-down-btn1" type="button" class="btn btn-secondary thumbs-down">
+                    <i class="fa fa-thumbs-o-down"></i>
+                  </button>
+                </div>
+              </div>
               <div id="result1"></div>
             </div>
             <div id="collapse2" class="panel-collapse collapse in">
+              <div class="row" id="feedback-container2">
+                <div class="col-9">
+                  <h2>Was this article helpful?</h2>
+                </div>
+                <div id="feedback-column2" class="col-3" style="display:flex;justify-content:flex-end;">
+                  <button id="thumbs-up-btn2" type="button" class="btn btn-secondary thumbs-up">
+                    <i class="fa fa-thumbs-o-up"></i>
+                  </button>
+                  <button id="thumbs-down-btn2" type="button" class="btn btn-secondary thumbs-down">
+                    <i class="fa fa-thumbs-o-down"></i>
+                  </button>
+                </div>
+              </div>
               <div id="result2"></div>
             </div>
             <div id="collapse3" class="panel-collapse collapse in">
+              <div class="row" id="feedback-container3">
+                <div class="col-9">
+                  <h2>Was this article helpful?</h2>
+                </div>
+                <div id="feedback-column3" class="col-3" style="display:flex;justify-content:flex-end;">
+                  <button id="thumbs-up-btn3" type="button" class="btn btn-secondary thumbs-up">
+                    <i class="fa fa-thumbs-o-up"></i>
+                  </button>
+                  <button id="thumbs-down-btn3" type="button" class="btn btn-secondary thumbs-down">
+                    <i class="fa fa-thumbs-o-down"></i>
+                  </button>
+                </div>
+              </div>
               <div id="result3"></div>
             </div>
           </div>
@@ -78,6 +118,9 @@
       </div>
     </div>
   </div>
+  <input type="hidden" name="document-id1" id="document-id1">
+  <input type="hidden" name="document-id2" id="document-id2">
+  <input type="hidden" name="document-id3" id="document-id3">
   <div class="padding"></div>
   <div class="footer">
     <div class="watson">
@@ -137,8 +180,6 @@
         uploadAudio2(blob);
       });
     }
-
-
 
     function uploadAudio2(blob) {
       var fd = new FormData();

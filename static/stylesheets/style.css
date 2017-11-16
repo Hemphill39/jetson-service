@@ -216,6 +216,23 @@ However, delay the fade out process for 2.5 seconds */
     animation: fadein 0.5s, fadeout 0.5s 4.5s;
 }
 
+.btn {
+    cursor: pointer;
+}
+
+#thumbs-up-btn {
+    margin-right: 10px;
+}
+
+#feedback-column {
+    display:flex;
+    justify-content:flex-end;
+}
+
+.thumbs-down {
+    margin-left: 1em;
+}
+
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
