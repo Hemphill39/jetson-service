@@ -58,6 +58,7 @@ var query = function (queryText, category) {
 
 					}
 					$("#response").hide();
+					$("#category-dropdown-button").hide();
 					$("#accordion").show();
 				}
 				//Otherwise we need to some logic to populate and show the dropdown box
