@@ -81,8 +81,8 @@ function query(queryText, category) {
 					$('#collapseheader2').html("");
 					$('#collapseheader3').html("");
 					for (var i = 0; i < discoveryResponse['articles'].length; i++) {
-						var resulttag = '#result' + (i + 1);
-						var collapsetag = '#collapseheader' + (i + 1);
+						var resultTag = '#result' + (i + 1);
+						var collapseTag = '#collapseheader' + (i + 1);
 						var article = discoveryResponse['articles'][i]
 						var rawHTML = article['html']
 						var documentId = article['id']
@@ -98,6 +98,7 @@ function query(queryText, category) {
 						$(collapseTag).html(rawHTML+"<br>");
 						$(resultTag).html(article['html']);
 						$("#document-id" + (i+1)).val(documentId);
+						$("#feedback-container" + (i+1)).show();
 					}
 					$("#response").hide();
 					$("#accordion").show();
