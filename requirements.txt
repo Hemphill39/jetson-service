@@ -1,5 +1,5 @@
 Flask==0.10.1
-watson-developer-cloud
+watson-developer-cloud==0.26.1
 pytest
 codecov
 pytest-cov

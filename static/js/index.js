@@ -74,14 +74,18 @@ function query(queryText, category) {
 				$("#query-text").removeAttr("disabled");
 			} else {
 				if (discoveryResponse['articles'].length > 0) {
-
+					$('#result1').html("");
+					$('#result2').html("");
+					$('#result3').html("");
+					$('#collapseheader1').html("");
+					$('#collapseheader2').html("");
+					$('#collapseheader3').html("");
 					for (var i = 0; i < discoveryResponse['articles'].length; i++) {
-						var resultTag = '#result' + (i+1);
-						var collapseTag = '#collapseheader' + (i+1);
+						var resulttag = '#result' + (i + 1);
+						var collapsetag = '#collapseheader' + (i + 1);
 						var article = discoveryResponse['articles'][i]
-						$("#document-id" + (i+1)).val(article['document_id']);
-						var rawHTML = article['html'];
-						var document_id = article['id'];
+						var rawHTML = article['html']
+						var documentId = article['id']
 						rawHTML = rawHTML.substring(4);
 						var end = rawHTML.indexOf('<');
 						if (end > 50){
@@ -93,9 +97,10 @@ function query(queryText, category) {
 						}
 						$(collapseTag).html(rawHTML+"<br>");
 						$(resultTag).html(article['html']);
+						$("#document-id" + (i+1)).val(documentId);
 					}
 					$("#response").hide();
-					$(" #accordion").show();
+					$("#accordion").show();
 				}
 				//Otherwise we need to some logic to populate and show the dropdown box
 				//to let the user choose a category for their query

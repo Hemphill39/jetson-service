@@ -14,6 +14,7 @@
 
 import os
 import json
+import logging
 from flask import Flask, jsonify, request
 from discovery import Discovery
 from speech_to_text import Speech_to_text
@@ -33,6 +34,8 @@ discovery_environment_id = "67c3f67b-a49f-4156-a795-1ff97ad09e6d"
 classifier_id = "ebd15ex229-nlc-54210"
 
 if 'VCAP_SERVICES' in os.environ:
+    logging.basicConfig(filename='welcome.log',level=logging.DEBUG)
+    logging.info('Using VCAP on remote')
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
     if 'discovery' in vcap:
         discreds = vcap['discovery'][0]['credentials']
@@ -58,8 +61,10 @@ if 'VCAP_SERVICES' in os.environ:
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-elif os.path.isfile('vcap-local-back.json'):
-    with open('vcap-local-back.json') as f:
+elif os.path.isfile('vcap-local.json'):
+    logging.basicConfig(filename="welcome.log", level=logging.DEBUG)
+    with open('vcap-local.json') as f:
+        logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
 
         discreds = vcap['discovery'][0]['credentials']
@@ -82,7 +87,6 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
-
 
 @app.route('/')
 def Welcome():
@@ -130,6 +134,8 @@ def handle_input(input_object):
 
     user_input = input_object['queryText']
     user_category = input_object['category']
+
+    logging.info('welcome.handle_input(): queryText: ' + user_input + ' category: ' + user_category)
 
     try:
         categories = []

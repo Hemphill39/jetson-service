@@ -16,6 +16,8 @@ _mailinglist
 *.wav
 vcap-local-back.json
 ghostdriver.log
+.log
+*.log
 
 # Coverage reports
 htmlcov
