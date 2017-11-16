@@ -34,6 +34,12 @@ var query = function (queryText, category) {
 				showSnackbar(wrapper_object['error']);
 			} else {
 				if (wrapper_object['html'].length > 0) {
+					$('#result1').html("");
+					$('#result2').html("");
+					$('#result3').html("");
+					$('#collapseheader1').html("");
+					$('#collapseheader2').html("");
+					$('#collapseheader3').html("");
 					for (var i = 1; i < wrapper_object['html'].length + 1; i++) {
 						var resulttag = '#result' + i;
 						var collapsetag = '#collapseheader' + i;
@@ -52,7 +58,7 @@ var query = function (queryText, category) {
 
 					}
 					$("#response").hide();
-					$(" #accordion").show();
+					$("#accordion").show();
 				}
 				//Otherwise we need to some logic to populate and show the dropdown box
 				//to let the user choose a category for their query
