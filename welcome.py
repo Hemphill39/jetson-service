@@ -107,7 +107,7 @@ def query_watson():
 def submit_feedback():
     request_obj = request.get_json()
     try:
-        discovery_feedback(request_obj['query'], request_obj['document_id'], request_obj['feedback'])
+        discovery_feedback_add_edit(request_obj['query'], request_obj['document_id'], request_obj['feedback'])
         return jsonify(result={"response" : "Feedback submitted"})
     except:
         return jsonify(resylt={"error": "Error submitting feedback"})
@@ -128,6 +128,61 @@ def discovery_feedback(query, document_id, relevance):
     }
     r = requests.post(url, auth=(discovery.creds['username'], discovery.creds['password']), json=data)
     print r
+
+def discovery_feedback_add_edit(query, document_id, relevance):
+    ALREADY_EXISTS = "ALREADY_EXISTS"
+    url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data?version=2017-11-07".format(discovery_environment_id,discovery_collection_id)
+
+    data = {
+      "natural_language_query": query,
+      "examples": [
+        {
+          "document_id": document_id,
+          "relevance": relevance
+        }
+      ]
+    }
+    headers = {"content-type":"application/json"}
+    r = requests.post(url, auth=(discovery.creds['username'], discovery.creds['password']), json=data)
+    try:
+        error_string = json.loads(r.content)["error"]
+        if ALREADY_EXISTS in error_string:
+            query_id = error_string.split(' already exists in collection')[0]
+            query_id = query_id.split('id ')[-1]
+
+            data = {
+              "document_id": document_id,
+              "relevance": relevance
+            }
+
+            print "Query already exists:",query_id
+
+            url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data/{2}/examples?version=2017-11-07".format(discovery_environment_id,discovery_collection_id,query_id)
+            r = requests.post(url, auth=(discovery.creds['username'], discovery.creds['password']), json=data)
+
+            try:
+                error_string = json.loads(r.content)["error"]
+                print error_string
+
+                if ALREADY_EXISTS in error_string:
+                    example_id = error_string.split(' already has an example')[0]
+                    example_id = example_id.split('Document id ')[-1]
+
+
+                    print example_id
+                    print "document already exists:",example_id
+
+                    url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data/{2}/examples/{3}?version=2017-11-07".format(discovery_environment_id,discovery_collection_id,query_id,example_id)
+                    r = requests.put(url, auth=(discovery.creds['username'], discovery.creds['password']), json=data)
+                    try:
+                        error_string = json.loads(r.content)["error"]
+                        print error_string
+                    except:
+                        print "Document score updated."
+            except:
+                print "Document added to query."
+    except:
+        print "New Query/document pair accepted."
 
 def handle_input(input_object):
     return_object = {'error': '', 'articles': [], 'categories': []}

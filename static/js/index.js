@@ -85,7 +85,7 @@ function query(queryText, category) {
 						var collapseTag = '#collapseheader' + (i + 1);
 						var article = discoveryResponse['articles'][i]
 						var rawHTML = article['html']
-						var documentId = article['id']
+						var documentId = article['document_id']
 						rawHTML = rawHTML.substring(4);
 						var end = rawHTML.indexOf('<');
 						if (end > 50){
