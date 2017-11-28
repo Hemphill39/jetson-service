@@ -14,6 +14,15 @@ $(".thumbs-down").click(function() {
 	sendDiscoveryFeedback(0, document_id, query, resultTag);
 })
 
+// Reset all of the accordion stuff
+function collapseAccordions() {
+	$('.panel-collapse').empty();
+	$('.panel-collapse').hide();
+	$('.result').empty();
+	$('.result').hide();
+	$('#watson-container').hide();
+}
+
 function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
 	data = { 
 		feedback : feedback,
@@ -52,6 +61,7 @@ function showSnackbar(message) {
 }
 
 function query(queryText, category) {
+	collapseAccordions();
 	var package = {}
 	package['queryText'] = queryText;
 	package['category'] = category;
