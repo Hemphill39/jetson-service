@@ -15,7 +15,7 @@
 import os
 import json
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from discovery import Discovery
 from speech_to_text import Speech_to_text
 from getConfidence import NLC
@@ -87,6 +87,13 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
+
+@app.before_request
+def before_request():
+    if request.url.startswith('http://'):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 @app.route('/')
 def Welcome():
