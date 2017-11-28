@@ -16,11 +16,7 @@ $(".thumbs-down").click(function() {
 
 // Reset all of the accordion stuff
 function collapseAccordions() {
-	$('.panel-collapse').empty();
-	$('.panel-collapse').hide();
-	$('.result').empty();
-	$('.result').hide();
-	$('#watson-container').hide();
+	$('.collapse').collapse('hide');
 }
 
 function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
