@@ -112,7 +112,7 @@ def submit_feedback():
     except:
         return jsonify(resylt={"error": "Error submitting feedback"})
 
-    
+
 
 def discovery_feedback(query, document_id, relevance):
     url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data?version=2017-11-07".format(discovery_environment_id,discovery_collection_id)
