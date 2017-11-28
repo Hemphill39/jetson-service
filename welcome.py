@@ -90,7 +90,7 @@ elif os.path.isfile('vcap-local-back.json'):
 
 @app.before_request
 def before_request():
-    if request.url.startswith('http://') and 'localhost' not in request.url:
+    if request.url.startswith('http://') and 'localhost' not in request.url and '0.0.0.0' not in request.url:
         url = request.url.replace('http://', 'https://', 1)
         code = 301
         return redirect(url, code=code)
