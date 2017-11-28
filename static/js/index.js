@@ -20,7 +20,7 @@ function collapseAccordions() {
 }
 
 function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
-	data = { 
+	data = {
 		feedback : feedback,
 		document_id: document_id,
 		query: query
@@ -37,7 +37,7 @@ function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
 			if (result.result['response']) {
 				showSnackbar("Thank you for your feedback!");
 				$("#feedback-container" + resultTag).hide();
-			}			
+			}
 		}, error: function(err) {
 			showSnackbar("Error sending your feedback");
 		}
@@ -108,6 +108,7 @@ function query(queryText, category) {
 					}
 					$("#response").hide();
 					$("#category-dropdown-button").hide();
+					$("#result0").hide();
 					$("#accordion").show();
 				}
 				//Otherwise we need to some logic to populate and show the dropdown box
@@ -129,7 +130,7 @@ function query(queryText, category) {
 				$("#result-container").show();
 				$("#query-text").removeAttr("disabled");
 			}
-			
+
 
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {

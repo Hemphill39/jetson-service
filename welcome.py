@@ -61,9 +61,9 @@ if 'VCAP_SERVICES' in os.environ:
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-elif os.path.isfile('vcap-local-back.json'):
+elif os.path.isfile('vcap-local.json'):
     logging.basicConfig(filename="welcome.log", level=logging.DEBUG)
-    with open('vcap-local-back.json') as f:
+    with open('vcap-local.json') as f:
         logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
 
@@ -112,7 +112,7 @@ def submit_feedback():
     except:
         return jsonify(resylt={"error": "Error submitting feedback"})
 
-    
+
 
 def discovery_feedback(query, document_id, relevance):
     url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data?version=2017-11-07".format(discovery_environment_id,discovery_collection_id)
