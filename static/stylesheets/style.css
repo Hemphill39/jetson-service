@@ -233,6 +233,11 @@ However, delay the fade out process for 2.5 seconds */
     margin-left: 1em;
 }
 
+.collapsewrap {
+	  background: #f5f5f5;
+		padding: 15px;
+}
+
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
     from {bottom: 0; opacity: 0;}
