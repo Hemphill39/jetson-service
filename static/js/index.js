@@ -5,14 +5,18 @@ $(".thumbs-up").click(function () {
 	var document_id = $("#document-id" + resultTag).val();
 	var query = $("#query-text").val();
 	sendDiscoveryFeedback(10, document_id, query, resultTag);
-})
+});
 
 $(".thumbs-down").click(function() {
 	var resultTag = this.id[this.id.length - 1];
 	var document_id = $("#document-id" + resultTag).val();
 	var query = $("#query-text").val();
 	sendDiscoveryFeedback(0, document_id, query, resultTag);
-})
+});
+
+function collapseAccordions() {
+	$('.collapse').collapse('hide');
+}
 
 function sendDiscoveryFeedback(feedback, document_id, query, resultTag) {
 	data = {
@@ -52,6 +56,7 @@ function showSnackbar(message) {
 }
 
 function query(queryText, category) {
+
 	var package = {}
 	package['queryText'] = queryText;
 	package['category'] = category;
