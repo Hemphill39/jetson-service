@@ -1,7 +1,5 @@
 from flask import Flask
 from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 import welcome
 import unittest
 
@@ -15,9 +13,5 @@ class ExampleTestCase(unittest.TestCase):
 
     def test_home(self):
         self.driver.get(self.baseURL)
-        wait = WebDriverWait(self.driver, 5)
-        try:
-            wait.until(EC.url_contains('127'))
-            assert 'Jetson Service' == self.driver.title
-        except:
-            print 'timeout exception'
+        print self.baseURL
+        assert 'Jetson Service' == self.driver.title
