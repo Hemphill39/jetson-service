@@ -15,7 +15,7 @@
 import os
 import json
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from discovery import Discovery
 from speech_to_text import Speech_to_text
 from getConfidence import NLC
@@ -61,9 +61,9 @@ if 'VCAP_SERVICES' in os.environ:
         speechurl = speechcreds['url']
         Speech = Speech_to_text(speechurl, speechuser, speechpassword)
 
-elif os.path.isfile('vcap-local-back.json'):
+elif os.path.isfile('vcap-local.json'):
     logging.basicConfig(filename="welcome.log", level=logging.DEBUG)
-    with open('vcap-local-back.json') as f:
+    with open('vcap-local.json') as f:
         logging.info('Using Local VCAP credentials')
         vcap = json.load(f)
 
@@ -87,6 +87,17 @@ elif os.path.isfile('vcap-local-back.json'):
         nlcpassword = nlccreds['password']
         nlcurl = nlccreds['url']
         classifier = NLC(nlcurl, nlcuser, nlcpassword, classifier_id)
+
+
+def is_localhost(request_url):
+    return 'localhost' in request_url and '0.0.0.0' not in request_url and '127.0.0.1' not in request_url
+
+@app.before_request
+def before_request():
+    if request.url.startswith('http://') and not is_localhost(request.url):
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 @app.route('/')
 def Welcome():
@@ -112,7 +123,7 @@ def submit_feedback():
     except:
         return jsonify(resylt={"error": "Error submitting feedback"})
 
-    
+
 
 def discovery_feedback(query, document_id, relevance):
     url = "https://gateway.watsonplatform.net/discovery/api/v1/environments/{0}/collections/{1}/training_data?version=2017-11-07".format(discovery_environment_id,discovery_collection_id)
