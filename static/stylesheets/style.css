@@ -234,8 +234,16 @@ However, delay the fade out process for 2.5 seconds */
 }
 
 .collapsewrap {
-	  background: #f5f5f5;
-		padding: 15px;
+    background: white;
+    padding: 1.25em;
+}
+
+.collapse-head {
+    color: #6e6e6e;
+}
+
+.card-header {
+    cursor: pointer;
 }
 
 /* Animations to fade the snackbar in and out */
