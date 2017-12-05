@@ -82,6 +82,7 @@ $(document).ready(function() {
 					$("#query-text").removeAttr("disabled");
 				} else {
 					if (discoveryResponse['articles'].length > 0) {
+						$(".card").hide();
 						$('#result1').html("");
 						$('#result2').html("");
 						$('#result3').html("");
@@ -91,6 +92,7 @@ $(document).ready(function() {
 						for (var i = 0; i < discoveryResponse['articles'].length; i++) {
 							var resultTag = '#result' + (i + 1);
 							var collapseTag = '#collapseheader' + (i + 1);
+							var cardTag = "#card" + (i + 1);
 							var article = discoveryResponse['articles'][i]
 							var rawHTML = article['html']
 							var documentId = article['document_id']
@@ -107,6 +109,7 @@ $(document).ready(function() {
 							$(resultTag).html(article['html']);
 							$("#document-id" + (i+1)).val(documentId);
 							$("#feedback-container" + (i+1)).show();
+							$(cardTag).show()
 						}
 						$("#response").hide();
 						$("#category-dropdown-button").hide();
